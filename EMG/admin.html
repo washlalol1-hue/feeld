@@ -611,19 +611,36 @@ function startCreation(){
   log.innerHTML='';
   fill.style.width='0%';
 
-  var i=0;
   sub.textContent='Creating '+actualCount+' accounts...';
 
   var creationSteps=['Connecting proxy','Requesting SMS number','Receiving verification code','Logging in via '+loginMethod,'Setting name & bio','Uploading photos','Finalizing account'];
 
-  var stepIdx=0;
+  // Pre-generate all accounts
+  var pendingAccounts=[];
+  for(var a=0;a<actualCount;a++){
+    pendingAccounts.push({
+      id:a+1,
+      name:pick(names),
+      age:randInt(ageMin,ageMax),
+      email:emails[a].email,
+      proxy:proxies[a%proxies.length],
+      bio:pick(bios),
+      status:'active',
+      swipes:0,
+      matches:0,
+      chats:0
+    });
+  }
+
   var currentAcc=0;
+  var stepIdx=0;
+  var tickDelay=Math.max(Math.floor(delay/creationSteps.length),350);
 
   var iv=setInterval(function(){
-    // Each account goes through multiple steps
     if(currentAcc>=actualCount){
       clearInterval(iv);
       fill.style.width='100%';
+      accounts=pendingAccounts;
       cst.textContent='All '+actualCount+' accounts created successfully!';cst.className='status ok';
       sub.textContent=actualCount+' accounts ready';
       toast(actualCount+' accounts created!','success');
@@ -632,26 +649,19 @@ function startCreation(){
       return;
     }
 
-    var email=emails[currentAcc];
-    var proxy=proxies[currentAcc%proxies.length];
-    var name=pick(names);
-    var age=randInt(ageMin,ageMax);
-    var bio=pick(bios);
-
-    addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">#'+(currentAcc+1)+' '+name+'</span> — '+creationSteps[stepIdx]);
+    var acc=pendingAccounts[currentAcc];
+    addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">#'+acc.id+' '+acc.name+'</span> — '+creationSteps[stepIdx]);
 
     stepIdx++;
     if(stepIdx>=creationSteps.length){
-      // Account done
-      accounts.push({id:currentAcc+1,name:name,age:age,email:email.email,proxy:proxy,bio:bio,status:'active',swipes:0,matches:0,chats:0});
-      addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--green)">✓ #'+(currentAcc+1)+' '+name+' — account ready!</span>');
+      addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--green)">✓ #'+acc.id+' '+acc.name+' ('+acc.age+') — account ready!</span>');
       currentAcc++;
       stepIdx=0;
       var pct=(currentAcc/actualCount)*100;
       fill.style.width=pct+'%';
       cst.textContent='Created '+currentAcc+'/'+actualCount+' accounts...';cst.className='status info';
     }
-  },Math.max(Math.floor(delay/creationSteps.length),400));
+  },tickDelay);
 }
 
 // ── Account Table ──
