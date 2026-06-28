@@ -196,6 +196,17 @@ button:active{transform:scale(0.97)}
     </div>
   </div>
 
+  <!-- SMS Pool -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">📱</div>
+      <div><div class="card-title">SMS Number Pool</div><div class="card-sub">Pre-loaded phone numbers for verification (one per line: number:code or just number)</div></div>
+    </div>
+    <div class="lbl">Phone Numbers (optional — overrides API if filled)</div>
+    <textarea id="smsPool" rows="4" placeholder="+14155551234:123456&#10;+447911123456:654321&#10;+33612345678:111222&#10;(format: number:verificationCode or just number for auto-receive)"></textarea>
+    <div class="status" id="smsPoolCount" style="margin-top:6px"></div>
+  </div>
+
   <!-- How Many Accounts -->
   <div class="card">
     <div class="card-head">
@@ -261,8 +272,8 @@ button:active{transform:scale(0.97)}
       <span class="toggle-label">Use custom bio list instead</span>
     </div>
     <textarea id="customBioList" rows="3" placeholder="just a vibe ✨&#10;coffee addict & sunset chaser 🌅&#10;not here for games 🍷" class="hidden"></textarea>
-    <div id="bioPreviewBox" style="margin-top:10px;display:flex;flex-direction:column;gap:6px"></div>
-    <button class="btn-sm" onclick="previewBios()" style="margin-top:8px">🎲 Show generated bios</button>
+    <div id="bioPreviewBox" style="margin-top:10px;display:none;flex-direction:column;gap:6px"></div>
+    <button class="btn-sm" onclick="toggleBioPreview()" id="bioPreviewBtn" style="margin-top:8px">🎲 Show generated bios</button>
     <div class="status info">Default: random from 25+ girly bio templates</div>
   </div>
 
@@ -459,7 +470,7 @@ button:active{transform:scale(0.97)}
 // ── Data ──
 const GIRL_NAMES=['Sophia','Mia','Luna','Olivia','Ava','Isabella','Aria','Chloe','Zoe','Lily','Ella','Nora','Riley','Layla','Stella','Violet','Aurora','Maya','Ivy','Willow','Ruby','Jade','Hazel','Scarlett','Savannah','Bella','Kylie','Ellie','Aaliyah','Naomi','Valentina','Clara','Lila','Sienna','Freya','Isla','Ember','Sage','Brielle','Kira','Camila','Amara','Nova','Eden','Athena','Wren','Faye','Leah','Talia','Gemma','Paisley','Serenity','Celeste','Lyra','Catalina','Daphne','Esme','Lena','Thea','Rosie','Ayla','Mika','Zara','Yara','Nia','Suki','Kaia','Remi','Harley','Ariel'];
 
-const BIOS=["just a vibe looking for something real","coffee addict & sunset chaser","not here for games, lets grab wine","pilates girly with a sweet tooth","adventure > netflix. take me somewhere new","dog mom energy, swipe right if youre tall","soft girl with a sharp mind","manifesting good energy only","lets skip the small talk","hot yoga & iced matcha kind of girl","probably at brunch rn","looking for my person, not a pen pal","sunshine mixed with a little hurricane","gym > going out but i clean up nice","plant mom, wine lover, overthinker","chaotic good energy, always down for spontaneous plans","your future situationship jk unless...","lowkey competitive about everything","fluent in sarcasm & emoji","that girl era, come along for the ride","sweet but a little unhinged","i have good music taste, thats my personality","healing my inner child one brunch at a time","catch flights not feelings jk im a softie","simple girl with expensive taste"];
+const BIOS=["just a vibe ✨ looking for something real 🦋","coffee addict & sunset chaser 🌅☕","not here for games 💅 lets grab wine 🍷","pilates girly with a sweet tooth 🧁💕","adventure > netflix ✈️ take me somewhere new","dog mom energy 🐾 swipe right if ur tall","soft girl with a sharp mind 💫🧠","manifesting good energy only 🦋✨","lets skip the small talk 💌 take me on a date","hot yoga & iced matcha kind of girl 🍵🧘‍♀️","probably at brunch rn 🥂💛","looking for my person, not a pen pal 💕","sunshine mixed with a little hurricane 🌊☀️","gym > going out but i clean up nice 💄🏋️‍♀️","plant mom 🌿 wine lover 🍷 overthinker 💭","chaotic good energy ✨ spontaneous plans only","your future situationship 💕 jk unless... 👀","5'4 but my attitude is 6'1 😌💅","lowkey competitive about everything 🏆🔥","fluent in sarcasm & emoji 💀✨ catch up","that girl era 🫶 come along for the ride","sweet but a little unhinged 🎀😈","good music taste = my whole personality 🎧💜","healing my inner child one brunch at a time 🧘‍♀️🥐","catch flights not feelings ✈️ jk im a softie 🥺","simple girl with expensive taste 💎👛","astrology girly 🔮 whats ur big 3?","beach days & golden hour pics 🏖️🌅","romanticizing my life one latte at a time ☕🌸","main character energy only 🎬✨ no extras","soft launch ready 📸💕 whos my costar","night drives & deep convos 🌙💫","giving goddess 🧿✨ receiving compliments","hot mess but make it fashion 💀👗","emotionally available (for once) 🥹💚"];
 
 const CHAT_REPLIES=["heyy how's your day going?","omg thats so cute haha","you seem fun, tell me more","i love that! what else are you into?","haha stoppp youre making me blush","thats actually really interesting","okayyy i like your energy","lol youre funny, i appreciate that","so what do you do for fun?","honestly same, we might actually vibe","thats such a green flag tbh","wait no way, me too!! what are the odds","you give good vibes","hmm interesting... tell me your hot take","okay but are you actually this sweet irl?"];
 
@@ -501,17 +512,33 @@ for(var f=0;f<input.files.length;f++){(function(file){var r=new FileReader();r.o
 function renderPics(){var g=document.getElementById('picGrid');g.innerHTML=pics.map(function(p,i){return '<div class="img-card"><img src="'+p.data+'"/><button class="img-del" onclick="pics.splice('+i+',1);renderPics()">&times;</button></div>'}).join('')}
 
 // ── Bio Preview ──
+let bioPreviewVisible=false;
+function toggleBioPreview(){
+  var box=document.getElementById('bioPreviewBox');
+  var btn=document.getElementById('bioPreviewBtn');
+  if(bioPreviewVisible){
+    box.style.display='none';
+    btn.textContent='🎲 Show generated bios';
+    bioPreviewVisible=false;
+  } else {
+    box.style.display='flex';
+    btn.textContent='✕ Hide bios';
+    bioPreviewVisible=true;
+    previewBios();
+  }
+}
 function previewBios(){
   var box=document.getElementById('bioPreviewBox');
   var samples=[];
   var pool=BIOS.slice();
   for(var i=0;i<4&&pool.length;i++){var idx=Math.floor(Math.random()*pool.length);samples.push(pool.splice(idx,1)[0])}
-  box.innerHTML=samples.map(function(b){return '<div style="padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:rgba(0,0,0,0.2);font-size:11px;color:var(--text2);font-style:italic">"'+b+'"</div>'}).join('')+'<button class="btn-sm" onclick="previewBios()" style="align-self:flex-start;margin-top:4px">🔄 more...</button>';
+  box.innerHTML=samples.map(function(b){return '<div style="padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:rgba(0,0,0,0.2);font-size:11px;color:var(--text2);font-style:italic">"'+b+'"</div>'}).join('')+'<button class="btn-sm" onclick="previewBios()" style="align-self:flex-start;margin-top:4px">🔄 shuffle more...</button>';
 }
 
 // ── Email/Proxy counters ──
 document.getElementById('emailList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.includes(':')});document.getElementById('emailCount').textContent=lines.length+' account(s) detected';document.getElementById('emailCount').className='status info'});
 document.getElementById('proxyList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.trim()});document.getElementById('proxyCount').textContent=lines.length+' proxy(ies) loaded';document.getElementById('proxyCount').className='status info'});
+document.getElementById('smsPool').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.trim()});document.getElementById('smsPoolCount').textContent=lines.length+' number(s) in pool';document.getElementById('smsPoolCount').className='status info'});
 
 // ═══════════════════════════════════════════════════════════
 // ACCOUNT CREATION
@@ -530,7 +557,10 @@ function startCreation(){
   var proxies=proxyRaw.split('\n').filter(function(l){return l.trim()}).map(function(l){return l.trim()});
   if(!proxies.length){st.textContent='Add at least one proxy';st.className='status err';return}
 
-  if(!smsKey){st.textContent='Enter SMS API key';st.className='status err';return}
+  if(!smsKey){
+    var smsPoolRaw=document.getElementById('smsPool').value.trim();
+    if(!smsPoolRaw){st.textContent='Enter SMS API key or fill SMS number pool';st.className='status err';return}
+  }
 
   var actualCount=Math.min(count,emails.length);
   st.textContent='';
@@ -558,10 +588,14 @@ function startCreation(){
   var i=0;
   sub.textContent='Creating '+actualCount+' accounts...';
 
-  var creationSteps=['Connecting proxy...','Requesting SMS number...','Receiving verification code...','Logging in via '+loginMethod+'...','Setting name & bio...','Uploading photos...','Account created'];
+  var creationSteps=['Connecting proxy','Requesting SMS number','Receiving verification code','Logging in via '+loginMethod,'Setting name & bio','Uploading photos','Finalizing account'];
+
+  var stepIdx=0;
+  var currentAcc=0;
 
   var iv=setInterval(function(){
-    if(i>=actualCount){
+    // Each account goes through multiple steps
+    if(currentAcc>=actualCount){
       clearInterval(iv);
       fill.style.width='100%';
       cst.textContent='All '+actualCount+' accounts created successfully!';cst.className='status ok';
@@ -572,21 +606,26 @@ function startCreation(){
       return;
     }
 
-    var email=emails[i];
-    var proxy=proxies[i%proxies.length];
+    var email=emails[currentAcc];
+    var proxy=proxies[currentAcc%proxies.length];
     var name=pick(names);
     var age=randInt(ageMin,ageMax);
     var bio=pick(bios);
 
-    addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">#'+(i+1)+' '+name+'</span> — '+creationSteps[i%creationSteps.length]);
+    addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">#'+(currentAcc+1)+' '+name+'</span> — '+creationSteps[stepIdx]);
 
-    accounts.push({id:i+1,name:name,age:age,email:email.email,proxy:proxy,bio:bio,status:'active',swipes:0,matches:0,chats:0});
-
-    i++;
-    var pct=(i/actualCount)*100;
-    fill.style.width=pct+'%';
-    cst.textContent='Creating account '+i+'/'+actualCount+'...';cst.className='status info';
-  },delay);
+    stepIdx++;
+    if(stepIdx>=creationSteps.length){
+      // Account done
+      accounts.push({id:currentAcc+1,name:name,age:age,email:email.email,proxy:proxy,bio:bio,status:'active',swipes:0,matches:0,chats:0});
+      addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--green)">✓ #'+(currentAcc+1)+' '+name+' — account ready!</span>');
+      currentAcc++;
+      stepIdx=0;
+      var pct=(currentAcc/actualCount)*100;
+      fill.style.width=pct+'%';
+      cst.textContent='Created '+currentAcc+'/'+actualCount+' accounts...';cst.className='status info';
+    }
+  },Math.max(Math.floor(delay/creationSteps.length),400));
 }
 
 // ── Account Table ──
