@@ -177,7 +177,7 @@ button:active{transform:scale(0.97)}
   <div class="card">
     <div class="card-head">
       <div class="card-icon">📡</div>
-      <div><div class="card-title">SMS Verification API</div><div class="card-sub">For phone verification during account creation</div></div>
+      <div><div class="card-title">SMS Verification</div><div class="card-sub">SMS service for phone verification</div></div>
     </div>
     <div class="two-col">
       <div>
@@ -191,20 +191,36 @@ button:active{transform:scale(0.97)}
           <option value="smspva">SMSPVA</option>
           <option value="smsactivate">SMS-Activate</option>
           <option value="textverified">TextVerified</option>
+          <option value="smspool">SMSPool.net</option>
+          <option value="onlinesim">OnlineSim</option>
+          <option value="grizzlysms">GrizzlySMS</option>
         </select>
       </div>
     </div>
-  </div>
-
-  <!-- SMS Pool -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-icon">📱</div>
-      <div><div class="card-title">SMS Number Pool</div><div class="card-sub">Pre-loaded phone numbers for verification (one per line: number:code or just number)</div></div>
+    <div class="lbl" style="margin-top:10px">Country / Number Type</div>
+    <div class="two-col">
+      <div>
+        <select id="smsCountry">
+          <option value="us">USA (+1)</option>
+          <option value="uk">UK (+44)</option>
+          <option value="de">Germany (+49)</option>
+          <option value="fr">France (+33)</option>
+          <option value="nl">Netherlands (+31)</option>
+          <option value="es">Spain (+34)</option>
+          <option value="ru">Russia (+7)</option>
+          <option value="in">India (+91)</option>
+          <option value="br">Brazil (+55)</option>
+          <option value="any">Any Available</option>
+        </select>
+      </div>
+      <div>
+        <select id="smsType">
+          <option value="virtual">Virtual Number</option>
+          <option value="real">Real SIM</option>
+          <option value="esim">eSIM</option>
+        </select>
+      </div>
     </div>
-    <div class="lbl">Phone Numbers (optional — overrides API if filled)</div>
-    <textarea id="smsPool" rows="4" placeholder="+14155551234:123456&#10;+447911123456:654321&#10;+33612345678:111222&#10;(format: number:verificationCode or just number for auto-receive)"></textarea>
-    <div class="status" id="smsPoolCount" style="margin-top:6px"></div>
   </div>
 
   <!-- How Many Accounts -->
@@ -383,6 +399,20 @@ button:active{transform:scale(0.97)}
       <span class="toggle-label">Humanized random delays (±1-3s jitter)</span>
     </div>
     <button class="btn-pink btn-full" id="swiperBtn" onclick="toggleSwiper()">▶ Start All Swipers</button>
+    <div style="display:flex;gap:12px;margin-top:10px">
+      <div style="flex:1;text-align:center;padding:10px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--glass)">
+        <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--lavender)" id="swipeCountStat">0</div>
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3)">Total Swipes</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:10px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--glass)">
+        <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--pink)" id="matchCountStat">0</div>
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3)">Matches</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:10px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--glass)">
+        <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green)" id="matchRateStat">0%</div>
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3)">Match Rate</div>
+      </div>
+    </div>
     <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" id="swipeFill"></div></div>
     <div class="status" id="swiperStatus"></div>
     <div class="log-box hidden" id="swiperLog" style="margin-top:10px"></div>
@@ -536,9 +566,8 @@ function previewBios(){
 }
 
 // ── Email/Proxy counters ──
-document.getElementById('emailList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.includes(':')});document.getElementById('emailCount').textContent=lines.length+' account(s) detected';document.getElementById('emailCount').className='status info'});
+document.getElementById('emailList').addEventListener('input',function(){var lines=this.value.split('\n').filter(function(l){return l.trim().includes(':')});document.getElementById('emailCount').textContent=lines.length+' account(s) detected';document.getElementById('emailCount').className='status info'});
 document.getElementById('proxyList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.trim()});document.getElementById('proxyCount').textContent=lines.length+' proxy(ies) loaded';document.getElementById('proxyCount').className='status info'});
-document.getElementById('smsPool').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.trim()});document.getElementById('smsPoolCount').textContent=lines.length+' number(s) in pool';document.getElementById('smsPoolCount').className='status info'});
 
 // ═══════════════════════════════════════════════════════════
 // ACCOUNT CREATION
@@ -551,16 +580,13 @@ function startCreation(){
   var delay=(parseInt(document.getElementById('creationDelay').value)||5)*1000;
   var st=document.getElementById('setupError');
 
-  var emails=emailRaw.split('\n').filter(function(l){return l.includes(':')}).map(function(l){var p=l.trim().split(':');return{email:p[0],pass:p.slice(1).join(':')}});
+  var emails=emailRaw.split('\n').filter(function(l){return l.trim().includes(':')}).map(function(l){var p=l.trim().split(':');return{email:p[0],pass:p.slice(1).join(':')}});
   if(!emails.length){st.textContent='Add at least one email:password';st.className='status err';return}
 
   var proxies=proxyRaw.split('\n').filter(function(l){return l.trim()}).map(function(l){return l.trim()});
   if(!proxies.length){st.textContent='Add at least one proxy';st.className='status err';return}
 
-  if(!smsKey){
-    var smsPoolRaw=document.getElementById('smsPool').value.trim();
-    if(!smsPoolRaw){st.textContent='Enter SMS API key or fill SMS number pool';st.className='status err';return}
-  }
+  if(!smsKey){st.textContent='Enter SMS API key';st.className='status err';return}
 
   var actualCount=Math.min(count,emails.length);
   st.textContent='';
@@ -670,7 +696,11 @@ function startSwiper(){
     else{var action=liked?'💚 LIKED':'❌ PASS';addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--text2)">'+acc.name+'</span> '+action+' → '+target+', '+tAge)}
     var pct=(swipeTotal/totalSwipes)*100;
     document.getElementById('swipeFill').style.width=pct+'%';
-    st.textContent='Swiping... '+swipeTotal+'/'+totalSwipes+' total | '+accounts.reduce(function(s,a){return s+a.matches},0)+' matches';
+    var totalMatches=accounts.reduce(function(s,a){return s+a.matches},0);
+    document.getElementById('swipeCountStat').textContent=swipeTotal;
+    document.getElementById('matchCountStat').textContent=totalMatches;
+    document.getElementById('matchRateStat').textContent=swipeTotal>0?Math.round((totalMatches/swipeTotal)*100)+'%':'0%';
+    st.textContent='Swiping... '+swipeTotal+'/'+totalSwipes+' total | '+totalMatches+' matches';
     renderAccTable();
   },delay+(humanized?randInt(-1000,1500):0));
 }
