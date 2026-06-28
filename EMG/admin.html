@@ -1,768 +1,778 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pure — Admin Panel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #07000f;
-      --bg2: #0d0018;
-      --glass: rgba(255, 255, 255, 0.04);
-      --glass2: rgba(255, 255, 255, 0.07);
-      --glass3: rgba(255, 255, 255, 0.10);
-      --border: rgba(255, 255, 255, 0.08);
-      --border2: rgba(255, 255, 255, 0.13);
-      --pink: #f72585;
-      --pink-dim: rgba(247, 37, 133, 0.15);
-      --pink-glow: rgba(247, 37, 133, 0.4);
-      --purple: #b5179e;
-      --violet: #7209b7;
-      --lavender: #c77dff;
-      --blue-v: #4361ee;
-      --green: #2dd4bf;
-      --green-dim: rgba(45, 212, 191, 0.12);
-      --amber: #fbbf24;
-      --amber-dim: rgba(251, 191, 36, 0.12);
-      --red: #f87171;
-      --red-dim: rgba(248, 113, 113, 0.12);
-      --text: #f0e6ff;
-      --text2: #9d8fc0;
-      --text3: #5a4d7a;
-      --mono: 'JetBrains Mono', monospace;
-      --sans: 'Inter', system-ui, sans-serif;
-      --radius: 14px;
-      --rsm: 8px;
-      --rxs: 6px;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FEELD — Automation Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#07000f;--glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);--glass3:rgba(255,255,255,0.10);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);--pink:#f72585;--pink-dim:rgba(247,37,133,0.15);--pink-glow:rgba(247,37,133,0.4);--purple:#b5179e;--violet:#7209b7;--lavender:#c77dff;--green:#2dd4bf;--green-dim:rgba(45,212,191,0.12);--amber:#fbbf24;--amber-dim:rgba(251,191,36,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--text:#f0e6ff;--text2:#9d8fc0;--text3:#5a4d7a;--mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--radius:14px;--rsm:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5;background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(114,9,183,0.25) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(247,37,133,0.18) 0%,transparent 60%)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(199,125,255,0.2);border-radius:10px}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 14px; scroll-behavior: smooth; }
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;background:rgba(7,0,15,0.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.brand-orb{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--violet));display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 0 18px var(--pink-glow)}
+.brand-title{font-size:15px;font-weight:700;letter-spacing:-0.3px}
+.brand-title span{color:var(--pink)}
+.brand-sub{font-size:10px;color:var(--text3);font-family:var(--mono)}
 
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.5;
-      background-image:
-        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(114, 9, 183, 0.25) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(247, 37, 133, 0.18) 0%, transparent 60%);
-    }
+.page{max-width:900px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:18px}
+.section-label{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3)}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
+.card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(20px);padding:20px;transition:border-color 0.2s}
+.card:hover{border-color:var(--border2)}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.card-icon{font-size:15px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:var(--glass2);border:1px solid var(--border);border-radius:var(--rsm)}
+.card-title{font-size:13px;font-weight:600}
+.card-sub{font-size:10px;color:var(--text3);margin-top:1px}
 
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(199, 125, 255, 0.2); border-radius: 10px; }
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:860px){.two-col,.three-col{grid-template-columns:1fr}}
 
-    .nav {
-      position: sticky; top: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 56px;
-      background: rgba(7, 0, 15, 0.75);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-brand { display: flex; align-items: center; gap: 10px; }
-    .brand-orb {
-      width: 28px; height: 28px; border-radius: 8px;
-      background: linear-gradient(135deg, var(--pink), var(--violet));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; box-shadow: 0 0 18px var(--pink-glow);
-    }
-    .brand-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
-    .brand-title span { color: var(--pink); }
-    .brand-sub { font-size: 11px; color: var(--text3); font-family: var(--mono); }
-    .nav-right { display: flex; align-items: center; gap: 10px; }
-    .nav-link {
-      font-family: var(--mono); font-size: 11px; font-weight: 500;
-      padding: 6px 14px; border-radius: 20px;
-      border: 1px solid var(--border2); background: var(--glass);
-      color: var(--text2); cursor: pointer; text-decoration: none;
-      transition: all 0.15s;
-    }
-    .nav-link:hover { background: var(--glass3); color: var(--text); border-color: rgba(255,255,255,0.2); }
+input[type="text"],input[type="password"],input[type="number"],textarea,select{width:100%;background:rgba(0,0,0,0.35);border:1px solid var(--border);border-radius:var(--rsm);color:var(--text);font-family:var(--mono);font-size:11px;padding:9px 12px;outline:none;transition:border-color 0.15s,box-shadow 0.15s;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-dim)}
+input::placeholder,textarea::placeholder{color:var(--text3)}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239d8fc0'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
 
-    .page { max-width: 1100px; margin: 0 auto; padding: 28px 28px 80px; display: flex; flex-direction: column; gap: 20px; }
+.lbl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:5px;display:block}
 
+button{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 14px;border-radius:var(--rsm);border:1px solid var(--border2);background:var(--glass2);color:var(--text2);cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+button:hover{background:var(--glass3);color:var(--text);border-color:rgba(255,255,255,0.2)}
+button:active{transform:scale(0.97)}
+.btn-pink{background:linear-gradient(135deg,var(--pink),var(--purple));border-color:transparent;color:#fff;font-weight:600;box-shadow:0 4px 20px var(--pink-glow)}
+.btn-pink:hover{box-shadow:0 6px 28px var(--pink-glow);transform:translateY(-1px)}
+.btn-green{background:var(--green-dim);border-color:rgba(45,212,191,0.25);color:var(--green)}
+.btn-red{background:var(--red-dim);border-color:rgba(248,113,113,0.25);color:var(--red)}
+.btn-full{width:100%;justify-content:center;font-size:13px;padding:10px 20px}
+.btn-sm{padding:5px 10px;font-size:11px}
 
-    /* Login */
-    .login-wrap {
-      max-width: 380px; margin: 100px auto 0; padding: 36px;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--radius); backdrop-filter: blur(20px);
-      text-align: center;
-    }
-    .login-wrap h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .login-wrap p { font-size: 12px; color: var(--text3); margin-bottom: 20px; }
+.toggle-wrap{display:flex;align-items:center;gap:8px;cursor:pointer}
+.toggle-track{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);border:1px solid var(--border);position:relative;transition:background 0.2s}
+.toggle-track.on{background:var(--pink-dim);border-color:var(--pink)}
+.toggle-knob{width:14px;height:14px;border-radius:50%;background:var(--text3);position:absolute;top:2px;left:2px;transition:all 0.2s}
+.toggle-track.on .toggle-knob{left:18px;background:var(--pink)}
+.toggle-label{font-size:11px;color:var(--text2)}
 
-    .section-label {
-      display: flex; align-items: center; gap: 14px;
-      font-family: var(--mono); font-size: 10px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3);
-    }
-    .section-label::before, .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.status{font-family:var(--mono);font-size:11px;margin-top:8px;min-height:16px}
+.status.ok{color:var(--green)}.status.err{color:var(--red)}.status.warn{color:var(--amber)}.status.info{color:var(--lavender)}
 
-    .card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--radius); backdrop-filter: blur(20px);
-      padding: 22px; transition: border-color 0.2s;
-    }
-    .card:hover { border-color: var(--border2); }
-    .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-    .card-icon {
-      font-size: 16px; width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--glass2); border: 1px solid var(--border); border-radius: var(--rsm);
-    }
-    .card-title { font-size: 13px; font-weight: 600; color: var(--text); }
-    .card-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.pill{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:4px;font-weight:600;letter-spacing:0.04em}
+.pill-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(45,212,191,0.3)}
+.pill-red{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,0.3)}
+.pill-amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
+.pill-purple{background:rgba(199,125,255,0.12);color:var(--lavender);border:1px solid rgba(199,125,255,0.3)}
 
-    textarea, input[type="text"], input[type="password"], input[type="number"], select {
-      width: 100%; background: rgba(0,0,0,0.3);
-      border: 1px solid var(--border); border-radius: var(--rsm);
-      color: var(--text); font-family: var(--mono); font-size: 11.5px;
-      padding: 9px 12px; outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      resize: vertical; line-height: 1.6;
-    }
-    textarea:focus, input:focus, select:focus { border-color: var(--pink); box-shadow: 0 0 0 3px var(--pink-dim); }
-    textarea::placeholder, input::placeholder { color: var(--text3); }
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:10px}
+.img-card{position:relative;border-radius:var(--rsm);border:1px solid var(--border);overflow:hidden;background:rgba(0,0,0,0.3);aspect-ratio:1}
+.img-card img{width:100%;height:100%;object-fit:cover}
+.img-card .img-del{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.8);border:1px solid var(--border);color:var(--red);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.15s;padding:0}
+.img-card:hover .img-del{opacity:1}
 
-    .input-label {
-      font-family: var(--mono); font-size: 10px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3);
-      margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
-    }
+.log-box{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--rsm);padding:10px;font-family:var(--mono);font-size:10px;color:var(--text2);max-height:160px;overflow-y:auto;line-height:1.7}
+.log-line{opacity:0;animation:fadeIn 0.3s ease forwards}
+@keyframes fadeIn{to{opacity:1}}
 
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:var(--rsm);font-family:var(--mono);font-size:11px;backdrop-filter:blur(12px);border:1px solid var(--border2);animation:slideIn 0.3s ease;pointer-events:none}
+.toast.success{background:rgba(45,212,191,0.15);color:var(--green);border-color:rgba(45,212,191,0.3)}
+.toast.error{background:rgba(248,113,113,0.15);color:var(--red);border-color:rgba(248,113,113,0.3)}
+.toast.info{background:rgba(199,125,255,0.15);color:var(--lavender);border-color:rgba(199,125,255,0.3)}
+@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
 
-    button {
-      font-family: var(--sans); font-size: 12px; font-weight: 500;
-      padding: 7px 14px; border-radius: var(--rsm);
-      border: 1px solid var(--border2); background: var(--glass2);
-      color: var(--text2); cursor: pointer;
-      transition: all 0.15s ease; white-space: nowrap;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    button:hover { background: var(--glass3); color: var(--text); border-color: rgba(255,255,255,0.2); }
-    button:active { transform: scale(0.97); }
+.hidden{display:none!important}
+.login-wrap{max-width:400px;margin:80px auto 0;padding:36px;background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(20px);text-align:center}
+.login-wrap h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.login-wrap p{font-size:11px;color:var(--text3);margin-bottom:20px}
 
-    .btn-pink {
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      border-color: transparent; color: #fff; font-weight: 600;
-      box-shadow: 0 4px 20px var(--pink-glow);
-    }
-    .btn-pink:hover { box-shadow: 0 6px 28px var(--pink-glow); transform: translateY(-1px); }
-    .btn-green { background: var(--green-dim); border-color: rgba(45,212,191,0.25); color: var(--green); }
-    .btn-green:hover { background: rgba(45,212,191,0.2); }
-    .btn-red { background: var(--red-dim); border-color: rgba(248,113,113,0.25); color: var(--red); }
-    .btn-red:hover { background: rgba(248,113,113,0.2); }
-    .btn-ghost { background: transparent; border-color: var(--border); color: var(--text3); font-size: 11px; padding: 5px 10px; }
-    .btn-ghost:hover { color: var(--text); background: var(--glass2); }
-    .btn-full { width: 100%; justify-content: center; font-size: 13px; padding: 10px 20px; }
+.radio-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.radio-opt{padding:8px 14px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--glass);font-size:11px;font-weight:500;cursor:pointer;transition:all 0.15s;color:var(--text2)}
+.radio-opt:hover{border-color:var(--border2);color:var(--text)}
+.radio-opt.active{border-color:var(--pink);background:var(--pink-dim);color:var(--pink)}
 
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.funnel-opt{padding:10px 16px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--glass);text-align:center;cursor:pointer;transition:all 0.15s}
+.funnel-opt:hover{border-color:var(--border2)}
+.funnel-opt.active{border-color:var(--green);background:var(--green-dim)}
+.funnel-opt .f-icon{font-size:20px;margin-bottom:4px}
+.funnel-opt .f-name{font-size:11px;font-weight:600;color:var(--text)}
+.funnel-opt .f-sub{font-size:9px;color:var(--text3)}
 
-    /* User table */
-    .u-table { width: 100%; border-collapse: collapse; }
-    .u-table th {
-      font-family: var(--mono); font-size: 10px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3);
-      text-align: left; padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .u-table td {
-      font-size: 12px; padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-    }
-    .u-table tr:hover td { background: var(--glass); }
-    .u-table .name-cell { font-weight: 600; color: var(--lavender); cursor: pointer; }
-    .u-table .name-cell:hover { text-decoration: underline; }
-
-    .badge {
-      font-family: var(--mono); font-size: 9px; padding: 2px 7px;
-      border-radius: 4px; font-weight: 600; letter-spacing: 0.04em;
-    }
-    .badge.active { background: var(--green-dim); color: var(--green); border: 1px solid rgba(45,212,191,0.3); }
-    .badge.disabled { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
-    .badge.count { background: var(--glass2); color: var(--text2); border: 1px solid var(--border); }
-
-
-    /* User detail panel */
-    .detail-panel {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--radius); backdrop-filter: blur(20px);
-      padding: 22px; display: none;
-    }
-    .detail-panel.open { display: block; }
-
-    .gmail-row {
-      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
-      border-radius: 7px; border: 1px solid var(--border);
-      background: rgba(0,0,0,0.2); margin-bottom: 4px;
-      font-family: var(--mono); font-size: 11px;
-    }
-    .gmail-row .email { color: var(--lavender); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .gmail-row .pass { color: var(--text2); margin-right: 8px; }
-
-    .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
-    .img-card {
-      position: relative; border-radius: var(--rsm);
-      border: 1px solid var(--border); overflow: hidden;
-      background: rgba(0,0,0,0.3); aspect-ratio: 1;
-    }
-    .img-card img { width: 100%; height: 100%; object-fit: cover; }
-    .img-card .img-del {
-      position: absolute; top: 4px; right: 4px;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: rgba(0,0,0,0.7); border: 1px solid var(--border);
-      color: var(--red); font-size: 12px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.15s; padding: 0;
-    }
-    .img-card:hover .img-del { opacity: 1; }
-
-    .status-msg { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-top: 8px; }
-    .status-msg.ok { color: var(--green); }
-    .status-msg.err { color: var(--red); }
-
-    .hidden { display: none !important; }
-
-    /* Toast notification */
-    .toast {
-      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-      padding: 12px 20px; border-radius: var(--rsm);
-      font-family: var(--mono); font-size: 11px;
-      backdrop-filter: blur(12px); border: 1px solid var(--border2);
-      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
-      pointer-events: none;
-    }
-    .toast.success { background: rgba(45,212,191,0.15); color: var(--green); border-color: rgba(45,212,191,0.3); }
-    .toast.error { background: rgba(248,113,113,0.15); color: var(--red); border-color: rgba(248,113,113,0.3); }
-    .toast.info { background: rgba(199,125,255,0.15); color: var(--lavender); border-color: rgba(199,125,255,0.3); }
-
-    @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-
-    @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
-  </style>
+.progress-bar{width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--pink),var(--lavender));transition:width 0.4s ease}
+</style>
 </head>
-
-
 <body>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-brand">
-      <div class="brand-orb">&#x1f6e1;</div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="brand-orb">F</div>
+    <div>
+      <div class="brand-title"><span>FEELD</span> Panel</div>
+      <div class="brand-sub">automation suite v2.1</div>
+    </div>
+  </div>
+  <div id="navStatus" style="display:none">
+    <span class="pill pill-green">CONNECTED</span>
+  </div>
+</nav>
+
+<!-- LOGIN SCREEN -->
+<div id="loginView">
+  <div class="login-wrap">
+    <h2>FEELD</h2>
+    <p>Select login method &amp; enter credentials</p>
+    <div class="lbl">Login Method</div>
+    <div class="radio-group" id="loginMethodGroup">
+      <div class="radio-opt active" data-val="icloud" onclick="selectLoginMethod(this)">iCloud</div>
+      <div class="radio-opt" data-val="gmail" onclick="selectLoginMethod(this)">Gmail</div>
+      <div class="radio-opt" data-val="facebook" onclick="selectLoginMethod(this)">Facebook</div>
+    </div>
+    <div class="lbl" style="margin-top:12px">Email / Username</div>
+    <input type="text" id="loginEmail" placeholder="email@example.com" style="margin-bottom:10px"/>
+    <div class="lbl">Password</div>
+    <input type="password" id="loginPass" placeholder="••••••••" style="margin-bottom:16px"/>
+    <button class="btn-pink btn-full" onclick="doLogin()">Connect Account</button>
+    <div class="status" id="loginStatus" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<!-- MAIN PANEL -->
+<div class="page hidden" id="mainView">
+
+  <!-- SMS & PROXY -->
+  <div class="section-label"><span>Connection</span></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">📡</div>
+        <div><div class="card-title">SMS API</div><div class="card-sub">SMS verification service</div></div>
+      </div>
+      <div class="lbl">API Key</div>
+      <input type="text" id="smsApiKey" placeholder="e.g. ak_live_xxxxxxxxxxxxxxxx" style="margin-bottom:8px"/>
+      <div class="lbl">Provider</div>
+      <select id="smsProvider" style="margin-bottom:10px">
+        <option value="5sim">5sim.net</option>
+        <option value="smspva">SMSPVA</option>
+        <option value="smsactivate">SMS-Activate</option>
+        <option value="textverified">TextVerified</option>
+      </select>
+      <button class="btn-green btn-full" onclick="connectSMS()">Connect SMS</button>
+      <div class="status" id="smsStatus"></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">🔒</div>
+        <div><div class="card-title">Proxy</div><div class="card-sub">Residential / mobile proxy</div></div>
+      </div>
+      <div class="lbl">Proxy String</div>
+      <input type="text" id="proxyInput" placeholder="user:pass@host:port" style="margin-bottom:8px"/>
+      <div class="lbl">Protocol</div>
+      <select id="proxyProto" style="margin-bottom:10px">
+        <option value="http">HTTP/HTTPS</option>
+        <option value="socks5">SOCKS5</option>
+        <option value="mobile">Mobile 4G</option>
+      </select>
+      <button class="btn-green btn-full" onclick="connectProxy()">Test & Connect</button>
+      <div class="status" id="proxyStatus"></div>
+    </div>
+  </div>
+  <!-- PROFILE SETUP -->
+  <div class="section-label"><span>Profile</span></div>
+  <div class="two-col">
+    <!-- AGE -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">🎂</div>
+        <div><div class="card-title">Age</div><div class="card-sub">Set age or random range</div></div>
+      </div>
+      <div class="lbl">Base Age</div>
+      <input type="number" id="ageInput" value="23" min="18" max="35" style="margin-bottom:8px"/>
+      <div class="toggle-wrap" onclick="toggleRandomAge()" style="margin-bottom:8px">
+        <div class="toggle-track" id="randomAgeToggle"><div class="toggle-knob"></div></div>
+        <span class="toggle-label">Randomize ±2-3 years</span>
+      </div>
+      <div class="status info" id="agePreview">Birthday: March 15, 2002 (age 23)</div>
+    </div>
+    <!-- NAME -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon">✨</div>
+        <div><div class="card-title">Name</div><div class="card-sub">First name only</div></div>
+      </div>
+      <div class="lbl">Name</div>
+      <input type="text" id="nameInput" placeholder="Type a name or generate..." style="margin-bottom:8px"/>
+      <div class="toggle-wrap" onclick="toggleRandomName()" style="margin-bottom:8px">
+        <div class="toggle-track" id="randomNameToggle"><div class="toggle-knob"></div></div>
+        <span class="toggle-label">Random girl name generator</span>
+      </div>
+      <button class="btn-sm btn-pink" onclick="generateName()">🎲 Generate</button>
+      <div class="status info" id="namePreview"></div>
+    </div>
+  </div>
+
+  <!-- BIO -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">💬</div>
+      <div><div class="card-title">Bio</div><div class="card-sub">1-2 sentences, girly vibe</div></div>
+    </div>
+    <textarea id="bioInput" rows="2" placeholder="Type a bio or generate one..." style="margin-bottom:8px"></textarea>
+    <div class="toggle-wrap" onclick="toggleRandomBio()" style="margin-bottom:8px">
+      <div class="toggle-track" id="randomBioToggle"><div class="toggle-knob"></div></div>
+      <span class="toggle-label">Random girly bio generator</span>
+    </div>
+    <button class="btn-sm btn-pink" onclick="generateBio()">🎲 Generate Bio</button>
+    <div class="status info" id="bioPreview"></div>
+  </div>
+
+  <!-- PICS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">📸</div>
+      <div><div class="card-title">Photos</div><div class="card-sub">Upload profile pics (max 6)</div></div>
+    </div>
+    <input type="file" id="picInput" accept="image/*" multiple style="font-family:var(--mono);font-size:11px;color:var(--text2);margin-bottom:8px"/>
+    <button class="btn-pink" onclick="uploadPics()">Upload Photos</button>
+    <div class="status" id="picStatus"></div>
+    <div class="img-grid" id="picGrid"></div>
+  </div>
+
+  <!-- AUTO SWIPER -->
+  <div class="section-label"><span>Automation</span></div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">💘</div>
+      <div><div class="card-title">Auto Swiper</div><div class="card-sub">Automated swiping with timing control</div></div>
+    </div>
+    <div class="two-col" style="margin-bottom:12px">
       <div>
-        <div class="brand-title"><span>Pure</span> Admin</div>
-        <div class="brand-sub">license &amp; VA management</div>
+        <div class="lbl">Swipe Delay (seconds)</div>
+        <input type="number" id="swipeDelay" value="3" min="1" max="30"/>
+      </div>
+      <div>
+        <div class="lbl">Max Swipes / Session</div>
+        <input type="number" id="swipeMax" value="50" min="5" max="500"/>
       </div>
     </div>
-    <div class="nav-right" id="navRight" style="display:none;">
-      <a class="nav-link" href="#" onclick="event.preventDefault();showToast('API Panel view','info')">API Panel</a>
-      <a class="nav-link" href="#" onclick="event.preventDefault();showToast('VA View loaded','info')">VA View</a>
-      <button class="btn-ghost" onclick="logout()">Logout</button>
+    <div class="two-col" style="margin-bottom:12px">
+      <div>
+        <div class="lbl">Like Ratio (%)</div>
+        <input type="number" id="swipeLikeRatio" value="70" min="10" max="100"/>
+      </div>
+      <div>
+        <div class="lbl">Session Duration (min)</div>
+        <input type="number" id="swipeDuration" value="30" min="5" max="120"/>
+      </div>
     </div>
-  </nav>
-
-  <!-- LOGIN -->
-  <div id="loginView">
-    <div class="login-wrap">
-      <h2>Admin Login</h2>
-      <p>Enter the admin password to continue</p>
-      <input type="password" id="loginPw" placeholder="Password..." onkeydown="if(event.key==='Enter')doLogin()" />
-      <button class="btn-pink btn-full" style="margin-top:14px;" onclick="doLogin()">Login</button>
-      <div class="status-msg" id="loginStatus" style="margin-top:10px;"></div>
+    <div class="toggle-wrap" onclick="toggleRandomTiming()" style="margin-bottom:12px">
+      <div class="toggle-track" id="randomTimingToggle"><div class="toggle-knob"></div></div>
+      <span class="toggle-label">Humanized random delays (±1-3s jitter)</span>
     </div>
+    <button class="btn-pink btn-full" id="swiperBtn" onclick="toggleSwiper()">▶ Start Swiping</button>
+    <div class="progress-bar" id="swipeProgress" style="display:none"><div class="progress-fill" id="swipeFill" style="width:0%"></div></div>
+    <div class="status" id="swiperStatus"></div>
+    <div class="log-box hidden" id="swiperLog"></div>
   </div>
 
-  <!-- MAIN -->
-  <div class="page hidden" id="mainView">
-
-    <!-- Stats row -->
-    <div class="section-label"><span>Overview</span></div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-      <div class="card" style="text-align:center;padding:16px;">
-        <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--lavender);" id="statUsers">0</div>
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">VA Users</div>
+  <!-- AI CHATTER -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">🤖</div>
+      <div><div class="card-title">Auto AI Chatter</div><div class="card-sub">AI-powered conversation handler</div></div>
+    </div>
+    <div class="two-col" style="margin-bottom:12px">
+      <div>
+        <div class="lbl">Reply Delay (seconds)</div>
+        <input type="number" id="chatDelay" value="15" min="5" max="120"/>
       </div>
-      <div class="card" style="text-align:center;padding:16px;">
-        <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--green);" id="statActive">0</div>
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">Active</div>
-      </div>
-      <div class="card" style="text-align:center;padding:16px;">
-        <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--amber);" id="statGmails">0</div>
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">Total Gmails</div>
-      </div>
-      <div class="card" style="text-align:center;padding:16px;">
-        <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--pink);" id="statImages">0</div>
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);">Total Images</div>
+      <div>
+        <div class="lbl">Personality</div>
+        <select id="chatPersonality">
+          <option value="flirty">Flirty & Playful</option>
+          <option value="chill">Chill & Casual</option>
+          <option value="mysterious">Mysterious</option>
+          <option value="sweet">Sweet & Warm</option>
+        </select>
       </div>
     </div>
-
-
-    <!-- Create user + Users list -->
-    <div class="section-label"><span>VA Users</span></div>
-
-    <div class="two-col">
-      <!-- Create -->
-      <div class="card">
-        <div class="card-head">
-          <div class="card-icon">+</div>
-          <div>
-            <div class="card-title">Create VA License</div>
-            <div class="card-sub">Give a new VA access to the panel</div>
-          </div>
-        </div>
-        <div class="input-label">Name</div>
-        <input type="text" id="newName" placeholder="e.g. Carl" style="margin-bottom:10px;" />
-        <div class="input-label">License Key</div>
-        <input type="text" id="newPassword" placeholder="e.g. PURE-XXXX-XXXX" style="margin-bottom:10px;" />
-        <button class="btn-pink btn-full" onclick="createUser()">Create User</button>
-        <div class="status-msg" id="createStatus"></div>
-      </div>
-
-      <!-- Admin settings -->
-      <div class="card">
-        <div class="card-head">
-          <div class="card-icon">&#x2699;</div>
-          <div>
-            <div class="card-title">Admin Settings</div>
-            <div class="card-sub">Change admin password</div>
-          </div>
-        </div>
-        <div class="input-label">New Admin Password</div>
-        <input type="password" id="newAdminPw" placeholder="New password..." style="margin-bottom:10px;" />
-        <button class="btn-green btn-full" onclick="changeAdminPw()">Update Password</button>
-        <div class="status-msg" id="adminPwStatus"></div>
-      </div>
+    <div class="toggle-wrap" onclick="toggleAIChatter()" style="margin-bottom:12px">
+      <div class="toggle-track" id="aiChatterToggle"><div class="toggle-knob"></div></div>
+      <span class="toggle-label">Enable AI Auto-Reply</span>
     </div>
-
-    <!-- Users table -->
-    <div class="card" style="padding:0;overflow:hidden;">
-      <table class="u-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Gmails</th>
-            <th>Images</th>
-            <th>Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="usersBody">
-          <tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;">No users yet</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-
-    <!-- User Detail Panel -->
-    <div class="detail-panel" id="detailPanel">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-        <div>
-          <div style="font-size:16px;font-weight:700;color:var(--lavender);" id="detailName">—</div>
-          <div style="font-size:11px;color:var(--text3);font-family:var(--mono);" id="detailId">—</div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn-ghost" onclick="closeDetail()">Close</button>
-        </div>
-      </div>
-
-      <div class="two-col">
-        <!-- Gmail import -->
-        <div>
-          <div class="card-head">
-            <div class="card-icon">&#x2709;</div>
-            <div>
-              <div class="card-title">Gmail Pool</div>
-              <div class="card-sub">Import gmail accounts (email;pass;recovery;webhook per line)</div>
-            </div>
-          </div>
-          <textarea id="gmailImportRaw" rows="5" placeholder="ubatehotiji01@gmail.com;56t6zdVYKfuk;mejegewe64@gmail.com;https://webhook.style/...&#10;xuvogiyeb79@gmail.com;fWWQJyAx1uUJ1es;motarofec909@gmail.com;https://webhook.style/..."></textarea>
-          <button class="btn-pink" style="margin-top:8px;" onclick="importGmails()">Import Gmails</button>
-          <div class="status-msg" id="gmailImportStatus"></div>
-          <div style="margin-top:14px;" id="gmailList"></div>
-        </div>
-
-        <!-- Image upload -->
-        <div>
-          <div class="card-head">
-            <div class="card-icon">&#x1f5bc;</div>
-            <div>
-              <div class="card-title">Image Pool</div>
-              <div class="card-sub">Upload images for this VA to use</div>
-            </div>
-          </div>
-          <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" multiple
-            style="font-family:var(--mono);font-size:11px;color:var(--text2);margin-bottom:8px;" />
-          <button class="btn-pink" onclick="uploadImages()">Upload Images</button>
-          <div class="status-msg" id="imageUploadStatus"></div>
-          <div class="img-grid" id="imageGrid" style="margin-top:14px;"></div>
-        </div>
-      </div>
-    </div>
-
+    <div class="status" id="chatterStatus"></div>
+    <div class="log-box hidden" id="chatterLog"></div>
   </div>
 
+  <!-- FUNNEL -->
+  <div class="section-label"><span>Funnel</span></div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">🔗</div>
+      <div><div class="card-title">Funnel Destination</div><div class="card-sub">Where to redirect matches</div></div>
+    </div>
+    <div class="three-col" style="margin-bottom:12px" id="funnelGroup">
+      <div class="funnel-opt active" data-val="telegram" onclick="selectFunnel(this)">
+        <div class="f-icon">✈️</div>
+        <div class="f-name">Telegram</div>
+        <div class="f-sub">@username</div>
+      </div>
+      <div class="funnel-opt" data-val="whatsapp" onclick="selectFunnel(this)">
+        <div class="f-icon">💬</div>
+        <div class="f-name">WhatsApp</div>
+        <div class="f-sub">+1234567890</div>
+      </div>
+      <div class="funnel-opt" data-val="instagram" onclick="selectFunnel(this)">
+        <div class="f-icon">📷</div>
+        <div class="f-name">Instagram</div>
+        <div class="f-sub">@handle</div>
+      </div>
+    </div>
+    <div class="lbl">Handle / Number</div>
+    <input type="text" id="funnelHandle" placeholder="@yourtelegram" style="margin-bottom:10px"/>
+    <button class="btn-green btn-full" onclick="saveFunnel()">Save Funnel</button>
+    <div class="status" id="funnelStatus"></div>
+  </div>
 
-  <script>
-    // ═══════════════════════════════════════════════════════════════
-    // PURE ADMIN PANEL — Full Client-Side Logic (No Backend)
-    // All data persisted in localStorage
-    // ═══════════════════════════════════════════════════════════════
+  <!-- SHADOWBAN REMOVER -->
+  <div class="section-label"><span>Tools</span></div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">🛡️</div>
+      <div><div class="card-title">Shadowban Remover</div><div class="card-sub">Detect &amp; remove account shadowban</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="btn-pink" onclick="checkShadowban()">🔍 Check Status</button>
+      <button class="btn-red" onclick="removeShadowban()">⚡ Remove Shadowban</button>
+    </div>
+    <div class="progress-bar hidden" id="shadowProgress"><div class="progress-fill" id="shadowFill" style="width:0%"></div></div>
+    <div class="status" id="shadowStatus"></div>
+    <div class="log-box hidden" id="shadowLog"></div>
+  </div>
 
-    const STORAGE_KEY = 'pure_admin_data';
-    const DEFAULT_PASSWORD = 'admin';
-    let currentUserId = null;
-    let isLoggedIn = false;
+</div><!-- end .page -->
 
-    // ── Data Layer ──
-    function getDB() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
-      // Default initial state
-      const db = {
-        adminPassword: DEFAULT_PASSWORD,
-        users: []
-      };
-      saveDB(db);
-      return db;
-    }
+<script>
+// ═══════════════════════════════════════════════════════════
+// FEELD PANEL — Full Client-Side Simulated Logic
+// ═══════════════════════════════════════════════════════════
 
-    function saveDB(db) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-    }
+// ── State ──
+let loginMethod = 'icloud';
+let randomAge = false, randomName = false, randomBio = false, randomTiming = false;
+let swiperRunning = false, swiperInterval = null, swipeCount = 0;
+let aiChatterOn = false, chatterInterval = null;
+let selectedFunnel = 'telegram';
+let pics = [];
 
-    function generateId() {
-      return 'usr_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
-    }
+// ── Girl Names ──
+const GIRL_NAMES = ['Sophia','Mia','Luna','Olivia','Ava','Isabella','Aria','Chloe','Zoe','Lily','Ella','Nora','Riley','Layla','Stella','Violet','Aurora','Maya','Ivy','Willow','Ruby','Jade','Hazel','Scarlett','Savannah','Bella','Kylie','Ellie','Aaliyah','Naomi','Valentina','Clara','Lila','Sienna','Freya','Isla','Ember','Sage','Brielle','Kira','Camila','Amara','Nova','Eden','Athena','Wren','Faye','Leah','Talia','Gemma','Paisley','Serenity','Celeste','Lyra','Catalina','Daphne','Esme','Lena','Thea','Rosie','Ayla','Mika','Zara','Yara','Nia','Suki','Kaia','Remi','Harley','Ariel'];
 
-    function formatDate(ts) {
-      const d = new Date(ts);
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
+// ── Girly Bios ──
+const BIOS = [
+  "just a vibe ✨ looking for something real",
+  "coffee addict & sunset chaser 🌅",
+  "not here for games, let's grab wine 🍷",
+  "pilates girly with a sweet tooth 🧁",
+  "adventure > netflix. take me somewhere new ✈️",
+  "dog mom energy 🐾 swipe right if you're tall",
+  "soft girl with a sharp mind 💅",
+  "manifesting good energy only 🦋",
+  "let's skip the small talk 💫",
+  "hot yoga & iced matcha kind of girl 🍵",
+  "probably at brunch rn 🥂",
+  "looking for my person, not a pen pal 💌",
+  "sunshine mixed with a little hurricane 🌊",
+  "catch flights not feelings ✈️ jk i'm a softie",
+  "gym > going out but i clean up nice 💄",
+  "plant mom, wine lover, overthinker 🌿",
+  "chaotic good energy, always down for spontaneous plans",
+  "your future situationship 💕 jk unless...",
+  "5'4 but my attitude is 6'1 😌",
+  "lowkey competitive about everything 🏆",
+  "fluent in sarcasm & emoji 💀✨",
+  "that girl era 🫶 come along for the ride",
+  "sweet but a little unhinged 🎀",
+  "i have good music taste, that's my personality",
+  "healing my inner child one brunch at a time 🧘‍♀️"
+];
 
+// ── AI Chat Responses ──
+const CHAT_MSGS = [
+  "heyy 😊 how's your day going?",
+  "omg that's so cute haha",
+  "you seem fun, tell me more 👀",
+  "i love that! what else are you into?",
+  "haha stoppp you're making me blush 🙈",
+  "that's actually really interesting, i never thought about it like that",
+  "okayyy i like your energy ✨",
+  "lol you're funny, i appreciate that",
+  "so what do you do for fun? besides being cute on here 😌",
+  "honestly same, we might actually vibe",
+  "that's such a green flag tbh 💚",
+  "wait no way, me too!! what are the odds",
+  "you give good vibes, i can tell 🦋",
+  "hmm interesting... tell me your hot take on pineapple pizza 🍕",
+  "okay but are you actually this sweet irl or just on here? 🤭"
+];
 
-    // ── Toast Notification ──
-    function showToast(message, type = 'info') {
-      const existing = document.querySelector('.toast');
-      if (existing) existing.remove();
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
+// ── Toast ──
+function toast(msg, type='info') {
+  const old = document.querySelector('.toast');
+  if (old) old.remove();
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
 
-    // ── Login / Logout ──
-    function doLogin() {
-      const pw = document.getElementById('loginPw').value;
-      const st = document.getElementById('loginStatus');
-      const db = getDB();
+// ── Login ──
+function selectLoginMethod(el) {
+  document.querySelectorAll('#loginMethodGroup .radio-opt').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  loginMethod = el.dataset.val;
+}
 
-      // Simulate network delay
-      st.textContent = 'Authenticating...'; st.className = 'status-msg';
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  const st = document.getElementById('loginStatus');
+  if (!email || !pass) { st.textContent = 'Enter email and password'; st.className = 'status err'; return; }
+  st.textContent = `Connecting via ${loginMethod}...`; st.className = 'status info';
+  setTimeout(() => {
+    st.textContent = 'Authenticating...'; st.className = 'status info';
+    setTimeout(() => {
+      st.textContent = `Verified! Logging in as ${email}`; st.className = 'status ok';
       setTimeout(() => {
-        if (pw === db.adminPassword) {
-          isLoggedIn = true;
-          localStorage.setItem('pure_logged_in', 'true');
-          st.textContent = ''; st.className = 'status-msg';
-          showMain();
-          showToast('Welcome back, Admin', 'success');
-        } else {
-          st.textContent = 'Invalid password'; st.className = 'status-msg err';
-        }
-      }, 400);
-    }
+        document.getElementById('loginView').classList.add('hidden');
+        document.getElementById('mainView').classList.remove('hidden');
+        document.getElementById('navStatus').style.display = 'block';
+        toast('Connected via ' + loginMethod, 'success');
+      }, 600);
+    }, 800);
+  }, 500);
+}
+// ── SMS & Proxy ──
+function connectSMS() {
+  const key = document.getElementById('smsApiKey').value.trim();
+  const provider = document.getElementById('smsProvider').value;
+  const st = document.getElementById('smsStatus');
+  if (!key) { st.textContent = 'Enter API key'; st.className = 'status err'; return; }
+  st.textContent = `Connecting to ${provider}...`; st.className = 'status info';
+  setTimeout(() => {
+    st.textContent = `✓ Connected to ${provider} | Balance: $${(Math.random()*50+5).toFixed(2)} | Numbers available`; st.className = 'status ok';
+    toast('SMS API connected', 'success');
+  }, 1200);
+}
 
-    function logout() {
-      isLoggedIn = false;
-      localStorage.removeItem('pure_logged_in');
-      document.getElementById('loginView').classList.remove('hidden');
-      document.getElementById('mainView').classList.add('hidden');
-      document.getElementById('navRight').style.display = 'none';
-      document.getElementById('loginPw').value = '';
-      showToast('Logged out', 'info');
-    }
+function connectProxy() {
+  const proxy = document.getElementById('proxyInput').value.trim();
+  const proto = document.getElementById('proxyProto').value;
+  const st = document.getElementById('proxyStatus');
+  if (!proxy) { st.textContent = 'Enter proxy string'; st.className = 'status err'; return; }
+  st.textContent = 'Testing proxy...'; st.className = 'status info';
+  setTimeout(() => {
+    const ping = Math.floor(Math.random()*80+30);
+    const ip = `${Math.floor(Math.random()*200+10)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+    st.textContent = `✓ Proxy live | IP: ${ip} | Ping: ${ping}ms | ${proto.toUpperCase()}`; st.className = 'status ok';
+    toast('Proxy connected', 'success');
+  }, 1500);
+}
 
-    function showMain() {
-      document.getElementById('loginView').classList.add('hidden');
-      document.getElementById('mainView').classList.remove('hidden');
-      document.getElementById('navRight').style.display = 'flex';
-      loadUsers();
-    }
+// ── Age ──
+function toggleRandomAge() {
+  randomAge = !randomAge;
+  document.getElementById('randomAgeToggle').classList.toggle('on', randomAge);
+  updateAgePreview();
+}
 
+function updateAgePreview() {
+  const base = parseInt(document.getElementById('ageInput').value) || 23;
+  const age = randomAge ? base + Math.floor(Math.random()*5) - 2 : base;
+  const year = new Date().getFullYear() - age;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const m = months[Math.floor(Math.random()*12)];
+  const d = Math.floor(Math.random()*28)+1;
+  document.getElementById('agePreview').textContent = `Birthday: ${m} ${d}, ${year} (age ${age})`;
+}
+document.getElementById('ageInput').addEventListener('input', updateAgePreview);
 
-    // ── User CRUD ──
-    function loadUsers() {
-      const db = getDB();
-      const users = db.users;
-      const tbody = document.getElementById('usersBody');
+// ── Name ──
+function toggleRandomName() {
+  randomName = !randomName;
+  document.getElementById('randomNameToggle').classList.toggle('on', randomName);
+  if (randomName) generateName();
+}
 
-      // Update stats
-      document.getElementById('statUsers').textContent = users.length;
-      document.getElementById('statActive').textContent = users.filter(u => u.active).length;
-      document.getElementById('statGmails').textContent = users.reduce((s, u) => s + (u.gmails || []).length, 0);
-      document.getElementById('statImages').textContent = users.reduce((s, u) => s + (u.images || []).length, 0);
+function generateName() {
+  const name = GIRL_NAMES[Math.floor(Math.random()*GIRL_NAMES.length)];
+  document.getElementById('nameInput').value = name;
+  document.getElementById('namePreview').textContent = `Generated: ${name}`;
+  toast(`Name: ${name}`, 'info');
+}
 
-      if (!users.length) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;">No users yet</td></tr>';
-        return;
-      }
-      tbody.innerHTML = users.map(u => `
-        <tr>
-          <td class="name-cell" onclick="openDetail('${esc(u.id)}')">${esc(u.name)}</td>
-          <td><span class="badge ${u.active ? 'active' : 'disabled'}">${u.active ? 'ACTIVE' : 'DISABLED'}</span></td>
-          <td><span class="badge count">${(u.gmails || []).length}</span></td>
-          <td><span class="badge count">${(u.images || []).length}</span></td>
-          <td style="font-family:var(--mono);font-size:11px;color:var(--text3);">${formatDate(u.created)}</td>
-          <td>
-            <button class="btn-ghost" onclick="toggleUser('${esc(u.id)}',${!u.active})">${u.active ? 'Disable' : 'Enable'}</button>
-            <button class="btn-ghost" style="color:var(--red);" onclick="deleteUser('${esc(u.id)}','${esc(u.name)}')">Delete</button>
-          </td>
-        </tr>
-      `).join('');
-    }
+// ── Bio ──
+function toggleRandomBio() {
+  randomBio = !randomBio;
+  document.getElementById('randomBioToggle').classList.toggle('on', randomBio);
+  if (randomBio) generateBio();
+}
 
-    function createUser() {
-      const name = document.getElementById('newName').value.trim();
-      const password = document.getElementById('newPassword').value.trim();
-      const st = document.getElementById('createStatus');
-      if (!name || !password) { st.textContent = 'Name and license key required'; st.className = 'status-msg err'; return; }
+function generateBio() {
+  const bio = BIOS[Math.floor(Math.random()*BIOS.length)];
+  document.getElementById('bioInput').value = bio;
+  document.getElementById('bioPreview').textContent = `Preview: ${bio}`;
+  toast('Bio generated', 'info');
+}
 
-      const db = getDB();
-      // Check duplicate name
-      if (db.users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
-        st.textContent = 'User with this name already exists'; st.className = 'status-msg err'; return;
-      }
-
-      const newUser = {
-        id: generateId(),
-        name: name,
-        password: password,
-        active: true,
-        gmails: [],
-        images: [],
-        created: Date.now()
-      };
-      db.users.push(newUser);
-      saveDB(db);
-
-      st.textContent = `User "${name}" created (license: ${password})`; st.className = 'status-msg ok';
-      document.getElementById('newName').value = '';
-      document.getElementById('newPassword').value = '';
-      loadUsers();
-      showToast(`User "${name}" created successfully`, 'success');
-    }
-
-
-    function toggleUser(id, active) {
-      const db = getDB();
-      const user = db.users.find(u => u.id === id);
-      if (user) {
-        user.active = active;
-        saveDB(db);
-        loadUsers();
-        showToast(`${user.name} ${active ? 'enabled' : 'disabled'}`, active ? 'success' : 'info');
-        if (currentUserId === id) openDetail(id);
-      }
-    }
-
-    function deleteUser(id, name) {
-      if (!confirm(`Delete user "${name}" and all their data?`)) return;
-      const db = getDB();
-      db.users = db.users.filter(u => u.id !== id);
-      saveDB(db);
-      if (currentUserId === id) closeDetail();
-      loadUsers();
-      showToast(`User "${name}" deleted`, 'error');
-    }
-
-    // ── Detail Panel ──
-    function openDetail(uid) {
-      currentUserId = uid;
-      const db = getDB();
-      const user = db.users.find(u => u.id === uid);
-      if (!user) return;
-
-      const panel = document.getElementById('detailPanel');
-      panel.classList.add('open');
-      document.getElementById('detailName').textContent = user.name;
-      document.getElementById('detailId').textContent = `ID: ${user.id} | License: ${user.password} | Status: ${user.active ? 'Active' : 'Disabled'}`;
-      renderGmails(user.gmails || []);
-      renderImages(user.images || []);
-      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function closeDetail() {
-      currentUserId = null;
-      document.getElementById('detailPanel').classList.remove('open');
-    }
-
-
-    // ── Gmails ──
-    function renderGmails(gmails) {
-      const el = document.getElementById('gmailList');
-      if (!gmails.length) {
-        el.innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono);">No gmails assigned</div>';
-        return;
-      }
-      el.innerHTML = gmails.map((g, i) => `
-        <div class="gmail-row">
-          <span class="email" title="${esc(g.email)}">${esc(g.email)}</span>
-          <span class="pass">${esc(g.password)}</span>
-          <button class="btn-ghost" style="color:var(--red);padding:2px 6px;font-size:10px;" onclick="deleteGmail(${i})">x</button>
-        </div>
-      `).join('');
-    }
-
-    function importGmails() {
-      const raw = document.getElementById('gmailImportRaw').value.trim();
-      const st = document.getElementById('gmailImportStatus');
-      if (!raw) { st.textContent = 'Paste gmail data first'; st.className = 'status-msg err'; return; }
-      if (!currentUserId) return;
-
-      const db = getDB();
-      const user = db.users.find(u => u.id === currentUserId);
-      if (!user) return;
-
-      const lines = raw.split('\n').filter(l => l.trim());
-      let added = 0;
-      for (const line of lines) {
-        const parts = line.split(';').map(p => p.trim());
-        if (parts.length >= 2) {
-          user.gmails.push({
-            email: parts[0],
-            password: parts[1],
-            recovery: parts[2] || '',
-            webhook: parts[3] || ''
-          });
-          added++;
-        }
-      }
-      saveDB(db);
-      st.textContent = `Added ${added} gmail(s), total: ${user.gmails.length}`; st.className = 'status-msg ok';
-      document.getElementById('gmailImportRaw').value = '';
-      renderGmails(user.gmails);
-      loadUsers();
-      showToast(`${added} gmail(s) imported`, 'success');
-    }
-
-    function deleteGmail(idx) {
-      if (!currentUserId) return;
-      const db = getDB();
-      const user = db.users.find(u => u.id === currentUserId);
-      if (!user) return;
-      const removed = user.gmails.splice(idx, 1);
-      saveDB(db);
-      renderGmails(user.gmails);
-      loadUsers();
-      showToast(`Removed ${removed[0]?.email || 'gmail'}`, 'error');
-    }
-
-
-    // ── Images ──
-    function renderImages(images) {
-      const el = document.getElementById('imageGrid');
-      if (!images.length) {
-        el.innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono);grid-column:1/-1;">No images uploaded</div>';
-        return;
-      }
-      el.innerHTML = images.map((img, i) => `
-        <div class="img-card">
-          <img src="${img.data}" loading="lazy" alt="${esc(img.name)}" />
-          <button class="img-del" onclick="deleteImage(${i})" title="Delete">&times;</button>
-        </div>
-      `).join('');
-    }
-
-    function uploadImages() {
-      const input = document.getElementById('imageFileInput');
-      const st = document.getElementById('imageUploadStatus');
-      if (!input.files || !input.files.length) { st.textContent = 'Select images first'; st.className = 'status-msg err'; return; }
-      if (!currentUserId) return;
-
-      st.textContent = 'Uploading...'; st.className = 'status-msg';
-      const db = getDB();
-      const user = db.users.find(u => u.id === currentUserId);
-      if (!user) return;
-
-      let uploaded = 0;
-      const total = input.files.length;
-      const promises = [];
-
-      for (const file of input.files) {
-        const p = new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            user.images.push({ name: file.name, data: reader.result });
-            uploaded++;
-            st.textContent = `Uploaded ${uploaded}/${total}...`;
-            resolve();
-          };
-          reader.onerror = () => resolve();
-          reader.readAsDataURL(file);
-        });
-        promises.push(p);
-      }
-
-      Promise.all(promises).then(() => {
-        saveDB(db);
-        st.textContent = `Uploaded ${uploaded} image(s)`; st.className = 'status-msg ok';
+// ── Pics ──
+function uploadPics() {
+  const input = document.getElementById('picInput');
+  const st = document.getElementById('picStatus');
+  if (!input.files || !input.files.length) { st.textContent = 'Select images first'; st.className = 'status err'; return; }
+  if (pics.length + input.files.length > 6) { st.textContent = 'Max 6 photos allowed'; st.className = 'status err'; return; }
+  st.textContent = 'Uploading...'; st.className = 'status info';
+  let loaded = 0;
+  const total = input.files.length;
+  for (const file of input.files) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      pics.push({ name: file.name, data: reader.result });
+      loaded++;
+      if (loaded === total) {
+        st.textContent = `✓ ${total} photo(s) uploaded (${pics.length}/6)`; st.className = 'status ok';
         input.value = '';
-        renderImages(user.images);
-        loadUsers();
-        showToast(`${uploaded} image(s) uploaded`, 'success');
-      });
-    }
-
-    function deleteImage(idx) {
-      if (!currentUserId) return;
-      const db = getDB();
-      const user = db.users.find(u => u.id === currentUserId);
-      if (!user) return;
-      const removed = user.images.splice(idx, 1);
-      saveDB(db);
-      renderImages(user.images);
-      loadUsers();
-      showToast(`Image "${removed[0]?.name || ''}" deleted`, 'error');
-    }
-
-
-    // ── Admin Password ──
-    function changeAdminPw() {
-      const pw = document.getElementById('newAdminPw').value.trim();
-      const st = document.getElementById('adminPwStatus');
-      if (!pw) { st.textContent = 'Enter a password'; st.className = 'status-msg err'; return; }
-      if (pw.length < 3) { st.textContent = 'Password too short (min 3 chars)'; st.className = 'status-msg err'; return; }
-
-      const db = getDB();
-      db.adminPassword = pw;
-      saveDB(db);
-      st.textContent = 'Password updated successfully'; st.className = 'status-msg ok';
-      document.getElementById('newAdminPw').value = '';
-      showToast('Admin password updated', 'success');
-    }
-
-    // ── Utils ──
-    function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-    // ── Init ──
-    (function init() {
-      if (localStorage.getItem('pure_logged_in') === 'true') {
-        isLoggedIn = true;
-        showMain();
+        renderPics();
+        toast(`${total} photo(s) added`, 'success');
       }
-    })();
-  </script>
+    };
+    reader.readAsDataURL(file);
+  }
+}
 
+function renderPics() {
+  const grid = document.getElementById('picGrid');
+  if (!pics.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = pics.map((p, i) => `
+    <div class="img-card">
+      <img src="${p.data}" alt="${p.name}"/>
+      <button class="img-del" onclick="deletePic(${i})">&times;</button>
+    </div>
+  `).join('');
+}
+
+function deletePic(i) {
+  pics.splice(i, 1);
+  renderPics();
+  toast('Photo removed', 'error');
+}
+// ── Auto Swiper ──
+function toggleRandomTiming() {
+  randomTiming = !randomTiming;
+  document.getElementById('randomTimingToggle').classList.toggle('on', randomTiming);
+}
+
+function toggleSwiper() {
+  if (swiperRunning) stopSwiper();
+  else startSwiper();
+}
+
+function startSwiper() {
+  swiperRunning = true;
+  swipeCount = 0;
+  const btn = document.getElementById('swiperBtn');
+  const st = document.getElementById('swiperStatus');
+  const log = document.getElementById('swiperLog');
+  const prog = document.getElementById('swipeProgress');
+  const maxSwipes = parseInt(document.getElementById('swipeMax').value) || 50;
+  const delay = (parseInt(document.getElementById('swipeDelay').value) || 3) * 1000;
+  const likeRatio = parseInt(document.getElementById('swipeLikeRatio').value) || 70;
+
+  btn.innerHTML = '⏹ Stop Swiping';
+  btn.classList.remove('btn-pink'); btn.classList.add('btn-red');
+  log.classList.remove('hidden');
+  prog.style.display = 'block';
+  st.textContent = 'Swiping...'; st.className = 'status ok';
+  toast('Auto Swiper started', 'success');
+
+  swiperInterval = setInterval(() => {
+    if (swipeCount >= maxSwipes) { stopSwiper(); return; }
+    swipeCount++;
+    const jitter = randomTiming ? Math.floor(Math.random()*2000-1000) : 0;
+    const liked = Math.random()*100 < likeRatio;
+    const fakeName = GIRL_NAMES[Math.floor(Math.random()*GIRL_NAMES.length)];
+    const fakeAge = Math.floor(Math.random()*10)+20;
+    const action = liked ? '💚 LIKED' : '❌ PASSED';
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> ${action} <span style="color:var(--lavender)">${fakeName}, ${fakeAge}</span>`;
+    log.prepend(line);
+    const pct = Math.min((swipeCount/maxSwipes)*100, 100);
+    document.getElementById('swipeFill').style.width = pct + '%';
+    st.textContent = `Swiping... ${swipeCount}/${maxSwipes} | ${liked?'Liked':'Passed'}`;
+  }, delay + (randomTiming ? Math.random()*2000 : 0));
+}
+
+function stopSwiper() {
+  swiperRunning = false;
+  clearInterval(swiperInterval);
+  const btn = document.getElementById('swiperBtn');
+  const st = document.getElementById('swiperStatus');
+  btn.innerHTML = '▶ Start Swiping';
+  btn.classList.remove('btn-red'); btn.classList.add('btn-pink');
+  st.textContent = `✓ Session complete — ${swipeCount} swipes`; st.className = 'status ok';
+  toast(`Swiper done: ${swipeCount} swipes`, 'success');
+}
+
+// ── AI Chatter ──
+function toggleAIChatter() {
+  aiChatterOn = !aiChatterOn;
+  document.getElementById('aiChatterToggle').classList.toggle('on', aiChatterOn);
+  const st = document.getElementById('chatterStatus');
+  const log = document.getElementById('chatterLog');
+
+  if (aiChatterOn) {
+    log.classList.remove('hidden');
+    st.textContent = 'AI Chatter active — monitoring conversations'; st.className = 'status ok';
+    toast('AI Chatter enabled', 'success');
+    simulateChats();
+  } else {
+    clearInterval(chatterInterval);
+    st.textContent = 'AI Chatter disabled'; st.className = 'status warn';
+    toast('AI Chatter stopped', 'info');
+  }
+}
+
+function simulateChats() {
+  const delay = (parseInt(document.getElementById('chatDelay').value) || 15) * 1000;
+  const personality = document.getElementById('chatPersonality').value;
+  const log = document.getElementById('chatterLog');
+
+  chatterInterval = setInterval(() => {
+    if (!aiChatterOn) return;
+    const matchName = GIRL_NAMES[Math.floor(Math.random()*GIRL_NAMES.length)];
+    const inbound = ['hey!','hi there 😊','what are you up to?','you seem cool','love your profile','heyy wyd','you look fun 👀'][Math.floor(Math.random()*7)];
+    const reply = CHAT_MSGS[Math.floor(Math.random()*CHAT_MSGS.length)];
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> <span style="color:var(--amber)">← ${matchName}:</span> "${inbound}" <span style="color:var(--green)">→ replied:</span> "${reply}" <span class="pill pill-purple" style="margin-left:4px">${personality}</span>`;
+    log.prepend(line);
+  }, delay + Math.random()*5000);
+}
+
+// ── Funnel ──
+function selectFunnel(el) {
+  document.querySelectorAll('#funnelGroup .funnel-opt').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  selectedFunnel = el.dataset.val;
+  const placeholders = { telegram: '@yourtelegram', whatsapp: '+1234567890', instagram: '@yourhandle' };
+  document.getElementById('funnelHandle').placeholder = placeholders[selectedFunnel];
+}
+
+function saveFunnel() {
+  const handle = document.getElementById('funnelHandle').value.trim();
+  const st = document.getElementById('funnelStatus');
+  if (!handle) { st.textContent = 'Enter your handle/number'; st.className = 'status err'; return; }
+  st.textContent = `✓ Funnel set → ${selectedFunnel}: ${handle}`; st.className = 'status ok';
+  toast(`Funnel saved: ${selectedFunnel}`, 'success');
+}
+
+// ── Shadowban Remover ──
+function checkShadowban() {
+  const st = document.getElementById('shadowStatus');
+  const log = document.getElementById('shadowLog');
+  log.classList.remove('hidden');
+  st.textContent = 'Checking account status...'; st.className = 'status info';
+
+  const steps = [
+    'Analyzing profile visibility...',
+    'Checking discovery feed placement...',
+    'Scanning like delivery rate...',
+    'Reviewing match frequency...',
+    'Checking ELO score indicators...'
+  ];
+  let i = 0;
+  const iv = setInterval(() => {
+    if (i >= steps.length) {
+      clearInterval(iv);
+      const banned = Math.random() > 0.5;
+      if (banned) {
+        st.textContent = '⚠️ SHADOWBAN DETECTED — reduced visibility'; st.className = 'status err';
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.innerHTML = `<span style="color:var(--red)">⚠️ Shadowban confirmed</span> — profile visibility reduced by ~70%, match rate down`;
+        log.prepend(line);
+        toast('Shadowban detected!', 'error');
+      } else {
+        st.textContent = '✓ No shadowban detected — account healthy'; st.className = 'status ok';
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.innerHTML = `<span style="color:var(--green)">✓ Account healthy</span> — normal visibility, ELO stable`;
+        log.prepend(line);
+        toast('Account is clean', 'success');
+      }
+      return;
+    }
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> ${steps[i]}`;
+    log.prepend(line);
+    st.textContent = steps[i]; st.className = 'status info';
+    i++;
+  }, 800);
+}
+
+function removeShadowban() {
+  const st = document.getElementById('shadowStatus');
+  const log = document.getElementById('shadowLog');
+  const prog = document.getElementById('shadowProgress');
+  const fill = document.getElementById('shadowFill');
+  log.classList.remove('hidden');
+  prog.classList.remove('hidden');
+  fill.style.width = '0%';
+  st.textContent = 'Removing shadowban...'; st.className = 'status info';
+  toast('Shadowban removal started', 'info');
+
+  const steps = [
+    'Resetting device fingerprint...',
+    'Rotating IP address...',
+    'Clearing cached ELO data...',
+    'Rebuilding profile signals...',
+    'Injecting fresh engagement metrics...',
+    'Resetting discovery algorithm placement...',
+    'Verifying profile re-indexing...',
+    'Confirming visibility restoration...'
+  ];
+  let i = 0;
+  const iv = setInterval(() => {
+    if (i >= steps.length) {
+      clearInterval(iv);
+      fill.style.width = '100%';
+      st.textContent = '✓ Shadowban removed — profile visibility restored'; st.className = 'status ok';
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      line.innerHTML = `<span style="color:var(--green)">✓ COMPLETE</span> — shadowban lifted, allow 10-30 min for full effect`;
+      log.prepend(line);
+      toast('Shadowban removed!', 'success');
+      return;
+    }
+    const pct = ((i+1)/steps.length)*100;
+    fill.style.width = pct + '%';
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> ${steps[i]}`;
+    log.prepend(line);
+    st.textContent = steps[i]; st.className = 'status info';
+    i++;
+  }, 1000);
+}
+
+// ── Init ──
+updateAgePreview();
+</script>
 </body>
 </html>
