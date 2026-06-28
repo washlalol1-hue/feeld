@@ -118,12 +118,14 @@ button:active{transform:scale(0.97)}
     <div class="brand-orb">F</div>
     <div>
       <div class="brand-title"><span>FEELD</span> Panel</div>
-      <div class="brand-sub">bulk automation v3.0</div>
+      <div class="brand-sub">automation suite</div>
     </div>
   </div>
   <div class="nav-pills" id="navPills" style="display:none">
     <span class="pill pill-green" id="navAccCount">0 ACCOUNTS</span>
     <span class="pill pill-purple" id="navStep">SETUP</span>
+    <button class="btn-ghost" id="navBtnSetup" onclick="showStep(1)" style="margin-left:8px">Setup</button>
+    <button class="btn-ghost" id="navBtnAccs" onclick="showStep(3)">Accounts</button>
   </div>
 </nav>
 
@@ -259,6 +261,8 @@ button:active{transform:scale(0.97)}
       <span class="toggle-label">Use custom bio list instead</span>
     </div>
     <textarea id="customBioList" rows="3" placeholder="just a vibe ✨&#10;coffee addict & sunset chaser 🌅&#10;not here for games 🍷" class="hidden"></textarea>
+    <div id="bioPreviewBox" style="margin-top:10px;display:flex;flex-direction:column;gap:6px"></div>
+    <button class="btn-sm" onclick="previewBios()" style="margin-top:8px">🎲 Show generated bios</button>
     <div class="status info">Default: random from 25+ girly bio templates</div>
   </div>
 
@@ -331,7 +335,7 @@ button:active{transform:scale(0.97)}
   <div class="card">
     <div class="card-head">
       <div class="card-icon">💘</div>
-      <div><div class="card-title">Auto Swiper (All Accounts)</div><div class="card-sub">Run swiping across all active accounts simultaneously</div></div>
+      <div><div class="card-title">Auto Swiper (All Accounts)</div><div class="card-sub">Swipe on guys across all accounts simultaneously</div></div>
     </div>
     <div class="two-col" style="margin-bottom:12px">
       <div>
@@ -351,6 +355,16 @@ button:active{transform:scale(0.97)}
       <div>
         <div class="lbl">Session Duration (min)</div>
         <input type="number" id="swipeDuration" value="30" min="5" max="120"/>
+      </div>
+    </div>
+    <div class="two-col" style="margin-bottom:12px">
+      <div>
+        <div class="lbl">Target Age (min)</div>
+        <input type="number" id="targetAgeMin" value="22" min="18" max="50"/>
+      </div>
+      <div>
+        <div class="lbl">Target Age (max)</div>
+        <input type="number" id="targetAgeMax" value="35" min="18" max="55"/>
       </div>
     </div>
     <div class="toggle-wrap" onclick="toggleOpt('humanSwipe')" style="margin-bottom:12px">
@@ -431,7 +445,7 @@ button:active{transform:scale(0.97)}
   </div>
 
   <!-- Back button -->
-  <button class="btn-ghost btn-full" onclick="goToSetup()" style="margin-top:10px">← Back to Setup (Create More)</button>
+  <button class="btn-ghost btn-full" onclick="goToSetup()" style="margin-top:10px">← Back to Setup (Create More Accounts)</button>
 
 </div>
 
@@ -449,7 +463,9 @@ const BIOS=["just a vibe looking for something real","coffee addict & sunset cha
 
 const CHAT_REPLIES=["heyy how's your day going?","omg thats so cute haha","you seem fun, tell me more","i love that! what else are you into?","haha stoppp youre making me blush","thats actually really interesting","okayyy i like your energy","lol youre funny, i appreciate that","so what do you do for fun?","honestly same, we might actually vibe","thats such a green flag tbh","wait no way, me too!! what are the odds","you give good vibes","hmm interesting... tell me your hot take","okay but are you actually this sweet irl?"];
 
-const INBOUND_MSGS=["hey!","hi there","what are you up to?","you seem cool","love your profile","heyy wyd","you look fun","omg ur so pretty","hey cutie","wanna chat?","ur vibe is immaculate","hey gorgeous","whats good?"];
+const INBOUND_MSGS=["hey!","hi there","what are you up to?","you seem cool","love your profile","heyy wyd","you look fun","hey beautiful","hey cutie","wanna chat?","ur vibe is immaculate","hey gorgeous","whats good?"];
+
+const BOY_NAMES=['James','Liam','Noah','Oliver','Ethan','Lucas','Mason','Logan','Alexander','Sebastian','Jack','Aiden','Owen','Daniel','Matthew','Henry','Jackson','Carter','Ryan','Nathan','Dylan','Tyler','Jake','Caleb','Hunter','Connor','Adrian','Marcus','Jayden','Leo','Eli','Max','Theo','Kai','Cole','Asher','Finn','Dean','Chase','Blake','Austin','Zach','Cameron','Parker','Miles','Nolan','Evan','Gavin','Brody','Dominic','Jace','Cooper','Wyatt','Xavier','Aaron','Isaiah','Landon','Jordan','Brandon','Axel','Jesse'];
 
 // ── State ──
 let loginMethod='gmail';
@@ -483,6 +499,15 @@ st.textContent='Uploading...';st.className='status info';var loaded=0;var total=
 for(var f=0;f<input.files.length;f++){(function(file){var r=new FileReader();r.onload=function(){pics.push({name:file.name,data:r.result});loaded++;if(loaded===total){st.textContent='Done! '+total+' photo(s) added ('+pics.length+' total in pool)';st.className='status ok';input.value='';renderPics();toast(total+' photos uploaded','success')}};r.readAsDataURL(file)})(input.files[f])}}
 
 function renderPics(){var g=document.getElementById('picGrid');g.innerHTML=pics.map(function(p,i){return '<div class="img-card"><img src="'+p.data+'"/><button class="img-del" onclick="pics.splice('+i+',1);renderPics()">&times;</button></div>'}).join('')}
+
+// ── Bio Preview ──
+function previewBios(){
+  var box=document.getElementById('bioPreviewBox');
+  var samples=[];
+  var pool=BIOS.slice();
+  for(var i=0;i<4&&pool.length;i++){var idx=Math.floor(Math.random()*pool.length);samples.push(pool.splice(idx,1)[0])}
+  box.innerHTML=samples.map(function(b){return '<div style="padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:rgba(0,0,0,0.2);font-size:11px;color:var(--text2);font-style:italic">"'+b+'"</div>'}).join('')+'<button class="btn-sm" onclick="previewBios()" style="align-self:flex-start;margin-top:4px">🔄 more...</button>';
+}
 
 // ── Email/Proxy counters ──
 document.getElementById('emailList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.includes(':')});document.getElementById('emailCount').textContent=lines.length+' account(s) detected';document.getElementById('emailCount').className='status info'});
@@ -598,10 +623,12 @@ function startSwiper(){
     if(acc.swipes>=maxPerAcc)return;
     acc.swipes++;swipeTotal++;
     var liked=Math.random()*100<likeRatio;
-    var target=pick(GIRL_NAMES);
-    var tAge=randInt(20,30);
-    if(liked&&Math.random()>0.7){acc.matches++;addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--pink)">MATCH!</span> <span style="color:var(--lavender)">'+acc.name+'</span> matched with '+target+', '+tAge)}
-    else{var action=liked?'LIKED':'PASS';addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--text2)">'+acc.name+'</span> '+action+' > '+target+', '+tAge)}
+    var tAgeMin=parseInt(document.getElementById('targetAgeMin').value)||22;
+    var tAgeMax=parseInt(document.getElementById('targetAgeMax').value)||35;
+    var target=pick(BOY_NAMES);
+    var tAge=randInt(tAgeMin,tAgeMax);
+    if(liked&&Math.random()>0.7){acc.matches++;addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--pink)">MATCH!</span> <span style="color:var(--lavender)">'+acc.name+'</span> matched with <span style="color:var(--green)">'+target+', '+tAge+'</span>')}
+    else{var action=liked?'💚 LIKED':'❌ PASS';addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--text2)">'+acc.name+'</span> '+action+' → '+target+', '+tAge)}
     var pct=(swipeTotal/totalSwipes)*100;
     document.getElementById('swipeFill').style.width=pct+'%';
     st.textContent='Swiping... '+swipeTotal+'/'+totalSwipes+' total | '+accounts.reduce(function(s,a){return s+a.matches},0)+' matches';
@@ -638,10 +665,10 @@ function toggleChatter(){
       if(!chatterRunning)return;
       var acc=pick(accounts);
       acc.chats++;
-      var matchName=pick(GIRL_NAMES);
+      var matchName=pick(BOY_NAMES);
       var inMsg=pick(INBOUND_MSGS);
       var reply=pick(CHAT_REPLIES);
-      addLog('chatterLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">'+acc.name+'</span> got: "'+inMsg+'" <span style="color:var(--green)">replied:</span> "'+reply+'" <span class="pill pill-purple">'+personality+'</span>');
+      addLog('chatterLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">'+acc.name+'</span> got from <span style="color:var(--amber)">'+matchName+'</span>: "'+inMsg+'" <span style="color:var(--green)">→ replied:</span> "'+reply+'" <span class="pill pill-purple">'+personality+'</span>');
       st.textContent='Active | '+accounts.reduce(function(s,a){return s+a.chats},0)+' messages sent total';
     },delay+randInt(0,5000));
   } else {
