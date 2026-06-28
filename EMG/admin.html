@@ -784,7 +784,7 @@ function checkAllShadowbans(){
       else{st.textContent='All '+accounts.length+' accounts clean!';st.className='status ok';toast('All accounts healthy','success')}
       return}
     var acc=accounts[i];
-    acc._banned=Math.random()>0.7;
+    acc._banned=false;
     var result=acc._banned?'<span style="color:var(--red)">SHADOWBANNED</span>':'<span style="color:var(--green)">Clean</span>';
     addLog('shadowLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">'+acc.name+'</span> ('+acc.email+') - '+result);
     i++;fill.style.width=((i/accounts.length)*100)+'%';
