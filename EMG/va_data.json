@@ -1,0 +1,57 @@
+{
+  "admin_password": "admin",
+  "users": {
+    "test": {
+      "name": "test",
+      "password": "test",
+      "active": true,
+      "created": "2026-04-23",
+      "gmails": [
+        {
+          "email": "nonezicaj27@gmail.com",
+          "password": "Mkl5OFnSQ2H8bxk",
+          "recovery": "ilogodeva745@gmail.com",
+          "webhook": "https://webhook.style/recovery-messages/d8K-lFKgt_KKz56K9XVCYoP-BAdu7FLG2Zy_UI8YN51HNK6g"
+        },
+        {
+          "email": "vusuyipecuq656@gmail.com",
+          "password": "5Sou5VdJZnwH5",
+          "recovery": "emoqetulep27@gmail.com",
+          "webhook": "https://webhook.style/recovery-messages/gs60q0DYr0iu8ncnapEzWAoOluTnel5tANQhZ9OMRGUzhLlFkv8k"
+        },
+        {
+          "email": "ulafevozomoc50@gmail.com",
+          "password": "wPdmH7z2pg3cLGp",
+          "recovery": "idihiyok575@gmail.com",
+          "webhook": "https://webhook.style/recovery-messages/XqpZJnFctSsvwcsoPPWvRHtePbEn2_cMXWYCuNDRi4vmf9gb"
+        },
+        {
+          "email": "tiyirasola798@gmail.com",
+          "password": "XI7qolZQvCt0",
+          "recovery": "ipowutorete472@gmail.com",
+          "webhook": "https://webhook.style/recovery-messages/t6C5qQZ8dzV43lztoGCbjY_GeyUwmsZ7Kuc4ombTA1cjfbjoWz-"
+        },
+        {
+          "email": "ropikeyuvo93@gmail.com",
+          "password": "Ee9bZczE9L2CS",
+          "recovery": "zevupolabur54@gmail.com",
+          "webhook": "https://webhook.style/recovery-messages/GlM1milsthq6uugjjX9ejw2EUozmQ8CxDI9Y7UlvKRrFD_4dV"
+        },
+        {
+          "email": "okifurepafu758@gmail.com",
+          "password": "eqckaElcPtNV8b",
+          "recovery": "bekovib092@gmail.com",
+          "webhook": "https://webhook.style/recovery-messages/5vM56q52UXR9Pgt3cDXT-bbdC717rCriXsf46jeoaK8-opzW56"
+        }
+      ],
+      "images": [
+        "hf_20260423_131812_5cb0a379-3f13-4806-bbf0-c9c306e09686.png",
+        "photo_2026-04-23_14-41-51.jpg",
+        "photo_2026-04-23_14-44-48__2_.jpg",
+        "hf_20260423_010945_ab6194b4-ca4e-4b67-8779-1d0880f2bbfc.png",
+        "hf_20260423_010941_718fcd4e-2668-4c6e-944f-3eabc771a2f2.png",
+        "hf_20260423_011224_a77d99bd-6f7d-426b-b407-2663cd45f367.png"
+      ]
+    }
+  }
+}
