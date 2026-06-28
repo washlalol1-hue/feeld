@@ -14,12 +14,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 
 .nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;background:rgba(7,0,15,0.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .nav-brand{display:flex;align-items:center;gap:10px}
-.brand-orb{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--violet));display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 0 18px var(--pink-glow)}
+.brand-orb{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--violet));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 0 18px var(--pink-glow);color:#fff}
 .brand-title{font-size:15px;font-weight:700;letter-spacing:-0.3px}
 .brand-title span{color:var(--pink)}
 .brand-sub{font-size:10px;color:var(--text3);font-family:var(--mono)}
+.nav-pills{display:flex;gap:8px;align-items:center}
 
-.page{max-width:900px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:18px}
+.page{max-width:960px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:18px}
 .section-label{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3)}
 .section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
@@ -48,8 +49,10 @@ button:active{transform:scale(0.97)}
 .btn-pink:hover{box-shadow:0 6px 28px var(--pink-glow);transform:translateY(-1px)}
 .btn-green{background:var(--green-dim);border-color:rgba(45,212,191,0.25);color:var(--green)}
 .btn-red{background:var(--red-dim);border-color:rgba(248,113,113,0.25);color:var(--red)}
+.btn-amber{background:var(--amber-dim);border-color:rgba(251,191,36,0.25);color:var(--amber)}
 .btn-full{width:100%;justify-content:center;font-size:13px;padding:10px 20px}
 .btn-sm{padding:5px 10px;font-size:11px}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--text3);font-size:11px;padding:5px 10px}
 
 .toggle-wrap{display:flex;align-items:center;gap:8px;cursor:pointer}
 .toggle-track{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.1);border:1px solid var(--border);position:relative;transition:background 0.2s}
@@ -66,27 +69,19 @@ button:active{transform:scale(0.97)}
 .pill-red{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,0.3)}
 .pill-amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
 .pill-purple{background:rgba(199,125,255,0.12);color:var(--lavender);border:1px solid rgba(199,125,255,0.3)}
+.pill-pink{background:var(--pink-dim);color:var(--pink);border:1px solid rgba(247,37,133,0.3)}
 
-.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:10px}
-.img-card{position:relative;border-radius:var(--rsm);border:1px solid var(--border);overflow:hidden;background:rgba(0,0,0,0.3);aspect-ratio:1}
-.img-card img{width:100%;height:100%;object-fit:cover}
-.img-card .img-del{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.8);border:1px solid var(--border);color:var(--red);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.15s;padding:0}
-.img-card:hover .img-del{opacity:1}
+.progress-bar{width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--pink),var(--lavender));transition:width 0.4s ease;width:0%}
 
-.log-box{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--rsm);padding:10px;font-family:var(--mono);font-size:10px;color:var(--text2);max-height:160px;overflow-y:auto;line-height:1.7}
+.log-box{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--rsm);padding:10px;font-family:var(--mono);font-size:10px;color:var(--text2);max-height:180px;overflow-y:auto;line-height:1.7}
 .log-line{opacity:0;animation:fadeIn 0.3s ease forwards}
 @keyframes fadeIn{to{opacity:1}}
 
-.toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:var(--rsm);font-family:var(--mono);font-size:11px;backdrop-filter:blur(12px);border:1px solid var(--border2);animation:slideIn 0.3s ease;pointer-events:none}
-.toast.success{background:rgba(45,212,191,0.15);color:var(--green);border-color:rgba(45,212,191,0.3)}
-.toast.error{background:rgba(248,113,113,0.15);color:var(--red);border-color:rgba(248,113,113,0.3)}
-.toast.info{background:rgba(199,125,255,0.15);color:var(--lavender);border-color:rgba(199,125,255,0.3)}
-@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
-
-.hidden{display:none!important}
-.login-wrap{max-width:400px;margin:80px auto 0;padding:36px;background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(20px);text-align:center}
-.login-wrap h2{font-size:20px;font-weight:800;margin-bottom:4px}
-.login-wrap p{font-size:11px;color:var(--text3);margin-bottom:20px}
+.acc-table{width:100%;border-collapse:collapse}
+.acc-table th{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.acc-table td{font-size:11px;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.acc-table tr:hover td{background:var(--glass)}
 
 .radio-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .radio-opt{padding:8px 14px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--glass);font-size:11px;font-weight:500;cursor:pointer;transition:all 0.15s;color:var(--text2)}
@@ -98,10 +93,21 @@ button:active{transform:scale(0.97)}
 .funnel-opt.active{border-color:var(--green);background:var(--green-dim)}
 .funnel-opt .f-icon{font-size:20px;margin-bottom:4px}
 .funnel-opt .f-name{font-size:11px;font-weight:600;color:var(--text)}
-.funnel-opt .f-sub{font-size:9px;color:var(--text3)}
 
-.progress-bar{width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:8px}
-.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--pink),var(--lavender));transition:width 0.4s ease}
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;margin-top:10px}
+.img-card{position:relative;border-radius:var(--rsm);border:1px solid var(--border);overflow:hidden;background:rgba(0,0,0,0.3);aspect-ratio:1}
+.img-card img{width:100%;height:100%;object-fit:cover}
+.img-card .img-del{position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,0.8);border:1px solid var(--border);color:var(--red);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.15s;padding:0}
+.img-card:hover .img-del{opacity:1}
+
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:var(--rsm);font-family:var(--mono);font-size:11px;backdrop-filter:blur(12px);border:1px solid var(--border2);animation:slideIn 0.3s ease;pointer-events:none}
+.toast.success{background:rgba(45,212,191,0.15);color:var(--green);border-color:rgba(45,212,191,0.3)}
+.toast.error{background:rgba(248,113,113,0.15);color:var(--red);border-color:rgba(248,113,113,0.3)}
+.toast.info{background:rgba(199,125,255,0.15);color:var(--lavender);border-color:rgba(199,125,255,0.3)}
+@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+.hidden{display:none!important}
+.step{display:none}.step.active{display:block}
 </style>
 </head>
 <body>
@@ -112,128 +118,155 @@ button:active{transform:scale(0.97)}
     <div class="brand-orb">F</div>
     <div>
       <div class="brand-title"><span>FEELD</span> Panel</div>
-      <div class="brand-sub">automation suite v2.1</div>
+      <div class="brand-sub">bulk automation v3.0</div>
     </div>
   </div>
-  <div id="navStatus" style="display:none">
-    <span class="pill pill-green">CONNECTED</span>
+  <div class="nav-pills" id="navPills" style="display:none">
+    <span class="pill pill-green" id="navAccCount">0 ACCOUNTS</span>
+    <span class="pill pill-purple" id="navStep">SETUP</span>
   </div>
 </nav>
 
-<!-- LOGIN SCREEN -->
-<div id="loginView">
-  <div class="login-wrap">
-    <h2>FEELD</h2>
-    <p>Select login method &amp; enter credentials</p>
-    <div class="lbl">Login Method</div>
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- STEP 1: SETUP - Gmails, Proxies, Config -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="step active" id="step1">
+
+  <div class="section-label"><span>Step 1 — Account Setup</span></div>
+
+  <!-- Login Method -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">🔑</div>
+      <div><div class="card-title">Login Method</div><div class="card-sub">Choose account type for bulk creation</div></div>
+    </div>
     <div class="radio-group" id="loginMethodGroup">
-      <div class="radio-opt active" data-val="icloud" onclick="selectLoginMethod(this)">iCloud</div>
-      <div class="radio-opt" data-val="gmail" onclick="selectLoginMethod(this)">Gmail</div>
-      <div class="radio-opt" data-val="facebook" onclick="selectLoginMethod(this)">Facebook</div>
-    </div>
-    <div class="lbl" style="margin-top:12px">Email / Username</div>
-    <input type="text" id="loginEmail" placeholder="email@example.com" style="margin-bottom:10px"/>
-    <div class="lbl">Password</div>
-    <input type="password" id="loginPass" placeholder="••••••••" style="margin-bottom:16px"/>
-    <button class="btn-pink btn-full" onclick="doLogin()">Connect Account</button>
-    <div class="status" id="loginStatus" style="margin-top:10px"></div>
-  </div>
-</div>
-
-<!-- MAIN PANEL -->
-<div class="page hidden" id="mainView">
-
-  <!-- SMS & PROXY -->
-  <div class="section-label"><span>Connection</span></div>
-  <div class="two-col">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon">📡</div>
-        <div><div class="card-title">SMS API</div><div class="card-sub">SMS verification service</div></div>
-      </div>
-      <div class="lbl">API Key</div>
-      <input type="text" id="smsApiKey" placeholder="e.g. ak_live_xxxxxxxxxxxxxxxx" style="margin-bottom:8px"/>
-      <div class="lbl">Provider</div>
-      <select id="smsProvider" style="margin-bottom:10px">
-        <option value="5sim">5sim.net</option>
-        <option value="smspva">SMSPVA</option>
-        <option value="smsactivate">SMS-Activate</option>
-        <option value="textverified">TextVerified</option>
-      </select>
-      <button class="btn-green btn-full" onclick="connectSMS()">Connect SMS</button>
-      <div class="status" id="smsStatus"></div>
-    </div>
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon">🔒</div>
-        <div><div class="card-title">Proxy</div><div class="card-sub">Residential / mobile proxy</div></div>
-      </div>
-      <div class="lbl">Proxy String</div>
-      <input type="text" id="proxyInput" placeholder="user:pass@host:port" style="margin-bottom:8px"/>
-      <div class="lbl">Protocol</div>
-      <select id="proxyProto" style="margin-bottom:10px">
-        <option value="http">HTTP/HTTPS</option>
-        <option value="socks5">SOCKS5</option>
-        <option value="mobile">Mobile 4G</option>
-      </select>
-      <button class="btn-green btn-full" onclick="connectProxy()">Test & Connect</button>
-      <div class="status" id="proxyStatus"></div>
+      <div class="radio-opt active" data-val="gmail" onclick="selectMethod(this)">Gmail</div>
+      <div class="radio-opt" data-val="icloud" onclick="selectMethod(this)">iCloud</div>
+      <div class="radio-opt" data-val="facebook" onclick="selectMethod(this)">Facebook</div>
     </div>
   </div>
-  <!-- PROFILE SETUP -->
-  <div class="section-label"><span>Profile</span></div>
+
+  <!-- Accounts Input -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">📧</div>
+      <div><div class="card-title">Account Credentials</div><div class="card-sub">One per line: email:password</div></div>
+    </div>
+    <div class="lbl">Email:Password List</div>
+    <textarea id="emailList" rows="6" placeholder="jessica.smith92@gmail.com:MyP@ss123&#10;luna.dreams@gmail.com:SecretKey456&#10;sophie.vibes@icloud.com:H3ll0World&#10;mia.cute99@gmail.com:Pass!word789&#10;(one account per line, email:password format)"></textarea>
+    <div class="status" id="emailCount" style="margin-top:6px"></div>
+  </div>
+
+  <!-- Proxies -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">🔒</div>
+      <div><div class="card-title">Proxy List</div><div class="card-sub">One per line — each account gets assigned a proxy</div></div>
+    </div>
+    <div class="lbl">Proxies (user:pass@host:port)</div>
+    <textarea id="proxyList" rows="5" placeholder="user1:pass1@us-res1.proxy.io:8080&#10;user2:pass2@uk-mobile.proxy.io:9090&#10;user3:pass3@de-res2.proxy.io:8080&#10;(proxies will be assigned round-robin to accounts)"></textarea>
+    <div class="status" id="proxyCount" style="margin-top:6px"></div>
+  </div>
+
+  <!-- SMS API -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">📡</div>
+      <div><div class="card-title">SMS Verification API</div><div class="card-sub">For phone verification during account creation</div></div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="lbl">API Key</div>
+        <input type="text" id="smsKey" placeholder="ak_live_xxxxxxxxxxxxxxxx"/>
+      </div>
+      <div>
+        <div class="lbl">Provider</div>
+        <select id="smsProvider">
+          <option value="5sim">5sim.net</option>
+          <option value="smspva">SMSPVA</option>
+          <option value="smsactivate">SMS-Activate</option>
+          <option value="textverified">TextVerified</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- How Many Accounts -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">📊</div>
+      <div><div class="card-title">Batch Size</div><div class="card-sub">How many accounts to create (limited by email list)</div></div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="lbl">Number of Accounts</div>
+        <input type="number" id="accCount" value="10" min="1" max="50"/>
+      </div>
+      <div>
+        <div class="lbl">Creation Delay (sec between each)</div>
+        <input type="number" id="creationDelay" value="5" min="2" max="30"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Config -->
+  <div class="section-label"><span>Profile Generation</span></div>
+
   <div class="two-col">
-    <!-- AGE -->
+    <!-- Age -->
     <div class="card">
       <div class="card-head">
         <div class="card-icon">🎂</div>
-        <div><div class="card-title">Age</div><div class="card-sub">Set age or random range</div></div>
+        <div><div class="card-title">Age Range</div><div class="card-sub">Random birthday generated per account</div></div>
       </div>
-      <div class="lbl">Base Age</div>
-      <input type="number" id="ageInput" value="23" min="18" max="35" style="margin-bottom:8px"/>
-      <div class="toggle-wrap" onclick="toggleRandomAge()" style="margin-bottom:8px">
-        <div class="toggle-track" id="randomAgeToggle"><div class="toggle-knob"></div></div>
-        <span class="toggle-label">Randomize ±2-3 years</span>
+      <div class="two-col">
+        <div>
+          <div class="lbl">Min Age</div>
+          <input type="number" id="ageMin" value="21" min="18" max="35"/>
+        </div>
+        <div>
+          <div class="lbl">Max Age</div>
+          <input type="number" id="ageMax" value="27" min="18" max="40"/>
+        </div>
       </div>
-      <div class="status info" id="agePreview">Birthday: March 15, 2002 (age 23)</div>
     </div>
-    <!-- NAME -->
+    <!-- Name -->
     <div class="card">
       <div class="card-head">
         <div class="card-icon">✨</div>
-        <div><div class="card-title">Name</div><div class="card-sub">First name only</div></div>
+        <div><div class="card-title">Names</div><div class="card-sub">Random girl first names (no last names)</div></div>
       </div>
-      <div class="lbl">Name</div>
-      <input type="text" id="nameInput" placeholder="Type a name or generate..." style="margin-bottom:8px"/>
-      <div class="toggle-wrap" onclick="toggleRandomName()" style="margin-bottom:8px">
-        <div class="toggle-track" id="randomNameToggle"><div class="toggle-knob"></div></div>
-        <span class="toggle-label">Random girl name generator</span>
+      <div class="toggle-wrap" onclick="toggleOpt('customNames')" style="margin-bottom:8px">
+        <div class="toggle-track" id="customNamesToggle"><div class="toggle-knob"></div></div>
+        <span class="toggle-label">Use custom name list instead</span>
       </div>
-      <button class="btn-sm btn-pink" onclick="generateName()">🎲 Generate</button>
-      <div class="status info" id="namePreview"></div>
+      <textarea id="customNameList" rows="2" placeholder="Sophia, Luna, Mia, Aria..." class="hidden" style="margin-top:6px"></textarea>
+      <div class="status info">Default: random from 70+ girl names</div>
     </div>
   </div>
 
-  <!-- BIO -->
+  <!-- Bio -->
   <div class="card">
     <div class="card-head">
       <div class="card-icon">💬</div>
-      <div><div class="card-title">Bio</div><div class="card-sub">1-2 sentences, girly vibe</div></div>
+      <div><div class="card-title">Bio Generation</div><div class="card-sub">Auto-generated girly bios (1-2 sentences)</div></div>
     </div>
-    <textarea id="bioInput" rows="2" placeholder="Type a bio or generate one..." style="margin-bottom:8px"></textarea>
-    <div class="toggle-wrap" onclick="toggleRandomBio()" style="margin-bottom:8px">
-      <div class="toggle-track" id="randomBioToggle"><div class="toggle-knob"></div></div>
-      <span class="toggle-label">Random girly bio generator</span>
+    <div class="toggle-wrap" onclick="toggleOpt('customBios')" style="margin-bottom:8px">
+      <div class="toggle-track" id="customBiosToggle"><div class="toggle-knob"></div></div>
+      <span class="toggle-label">Use custom bio list instead</span>
     </div>
-    <button class="btn-sm btn-pink" onclick="generateBio()">🎲 Generate Bio</button>
-    <div class="status info" id="bioPreview"></div>
+    <textarea id="customBioList" rows="3" placeholder="just a vibe ✨&#10;coffee addict & sunset chaser 🌅&#10;not here for games 🍷" class="hidden"></textarea>
+    <div class="status info">Default: random from 25+ girly bio templates</div>
   </div>
 
-  <!-- PICS -->
+  <!-- Photos -->
   <div class="card">
     <div class="card-head">
       <div class="card-icon">📸</div>
-      <div><div class="card-title">Photos</div><div class="card-sub">Upload profile pics (max 6)</div></div>
+      <div><div class="card-title">Photo Pool</div><div class="card-sub">Upload photos — randomly assigned to accounts (3-6 each)</div></div>
     </div>
     <input type="file" id="picInput" accept="image/*" multiple style="font-family:var(--mono);font-size:11px;color:var(--text2);margin-bottom:8px"/>
     <button class="btn-pink" onclick="uploadPics()">Upload Photos</button>
@@ -241,20 +274,72 @@ button:active{transform:scale(0.97)}
     <div class="img-grid" id="picGrid"></div>
   </div>
 
-  <!-- AUTO SWIPER -->
+  <!-- START BUTTON -->
+  <button class="btn-pink btn-full" style="font-size:15px;padding:14px 24px;margin-top:10px" onclick="startCreation()">🚀 Start Creating Accounts</button>
+  <div class="status" id="setupError" style="text-align:center"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- STEP 2: CREATION PROGRESS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="step" id="step2">
+  <div class="section-label"><span>Step 2 — Creating Accounts</span></div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">⚙️</div>
+      <div>
+        <div class="card-title">Batch Account Creation</div>
+        <div class="card-sub" id="creationSub">Initializing...</div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="creationFill"></div></div>
+    <div class="status info" id="creationStatus">Starting...</div>
+    <div class="log-box" id="creationLog" style="margin-top:12px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- STEP 3: ACCOUNTS TABLE + AUTOMATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="step" id="step3">
+
+  <div class="section-label"><span>Accounts Created</span></div>
+
+  <!-- Accounts Table -->
+  <div class="card" style="padding:0;overflow-x:auto">
+    <table class="acc-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Proxy</th>
+          <th>Status</th>
+          <th>Swiper</th>
+        </tr>
+      </thead>
+      <tbody id="accTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Automation Controls -->
   <div class="section-label"><span>Automation</span></div>
+
+  <!-- Swiper -->
   <div class="card">
     <div class="card-head">
       <div class="card-icon">💘</div>
-      <div><div class="card-title">Auto Swiper</div><div class="card-sub">Automated swiping with timing control</div></div>
+      <div><div class="card-title">Auto Swiper (All Accounts)</div><div class="card-sub">Run swiping across all active accounts simultaneously</div></div>
     </div>
     <div class="two-col" style="margin-bottom:12px">
       <div>
-        <div class="lbl">Swipe Delay (seconds)</div>
+        <div class="lbl">Swipe Delay (sec)</div>
         <input type="number" id="swipeDelay" value="3" min="1" max="30"/>
       </div>
       <div>
-        <div class="lbl">Max Swipes / Session</div>
+        <div class="lbl">Max Swipes / Account</div>
         <input type="number" id="swipeMax" value="50" min="5" max="500"/>
       </div>
     </div>
@@ -268,25 +353,25 @@ button:active{transform:scale(0.97)}
         <input type="number" id="swipeDuration" value="30" min="5" max="120"/>
       </div>
     </div>
-    <div class="toggle-wrap" onclick="toggleRandomTiming()" style="margin-bottom:12px">
-      <div class="toggle-track" id="randomTimingToggle"><div class="toggle-knob"></div></div>
+    <div class="toggle-wrap" onclick="toggleOpt('humanSwipe')" style="margin-bottom:12px">
+      <div class="toggle-track" id="humanSwipeToggle"><div class="toggle-knob"></div></div>
       <span class="toggle-label">Humanized random delays (±1-3s jitter)</span>
     </div>
-    <button class="btn-pink btn-full" id="swiperBtn" onclick="toggleSwiper()">▶ Start Swiping</button>
-    <div class="progress-bar" id="swipeProgress" style="display:none"><div class="progress-fill" id="swipeFill" style="width:0%"></div></div>
+    <button class="btn-pink btn-full" id="swiperBtn" onclick="toggleSwiper()">▶ Start All Swipers</button>
+    <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" id="swipeFill"></div></div>
     <div class="status" id="swiperStatus"></div>
-    <div class="log-box hidden" id="swiperLog"></div>
+    <div class="log-box hidden" id="swiperLog" style="margin-top:10px"></div>
   </div>
 
-  <!-- AI CHATTER -->
+  <!-- AI Chatter -->
   <div class="card">
     <div class="card-head">
       <div class="card-icon">🤖</div>
-      <div><div class="card-title">Auto AI Chatter</div><div class="card-sub">AI-powered conversation handler</div></div>
+      <div><div class="card-title">AI Auto Chatter (All Accounts)</div><div class="card-sub">AI replies to incoming messages on all accounts</div></div>
     </div>
     <div class="two-col" style="margin-bottom:12px">
       <div>
-        <div class="lbl">Reply Delay (seconds)</div>
+        <div class="lbl">Reply Delay (sec)</div>
         <input type="number" id="chatDelay" value="15" min="5" max="120"/>
       </div>
       <div>
@@ -299,480 +384,336 @@ button:active{transform:scale(0.97)}
         </select>
       </div>
     </div>
-    <div class="toggle-wrap" onclick="toggleAIChatter()" style="margin-bottom:12px">
-      <div class="toggle-track" id="aiChatterToggle"><div class="toggle-knob"></div></div>
-      <span class="toggle-label">Enable AI Auto-Reply</span>
-    </div>
+    <button class="btn-green btn-full" id="chatterBtn" onclick="toggleChatter()">▶ Enable AI Chatter</button>
     <div class="status" id="chatterStatus"></div>
-    <div class="log-box hidden" id="chatterLog"></div>
+    <div class="log-box hidden" id="chatterLog" style="margin-top:10px"></div>
   </div>
 
-  <!-- FUNNEL -->
-  <div class="section-label"><span>Funnel</span></div>
+  <!-- Funnel -->
   <div class="card">
     <div class="card-head">
       <div class="card-icon">🔗</div>
-      <div><div class="card-title">Funnel Destination</div><div class="card-sub">Where to redirect matches</div></div>
+      <div><div class="card-title">Funnel Destination</div><div class="card-sub">Where AI redirects matches</div></div>
     </div>
     <div class="three-col" style="margin-bottom:12px" id="funnelGroup">
       <div class="funnel-opt active" data-val="telegram" onclick="selectFunnel(this)">
         <div class="f-icon">✈️</div>
         <div class="f-name">Telegram</div>
-        <div class="f-sub">@username</div>
       </div>
       <div class="funnel-opt" data-val="whatsapp" onclick="selectFunnel(this)">
         <div class="f-icon">💬</div>
         <div class="f-name">WhatsApp</div>
-        <div class="f-sub">+1234567890</div>
       </div>
       <div class="funnel-opt" data-val="instagram" onclick="selectFunnel(this)">
         <div class="f-icon">📷</div>
         <div class="f-name">Instagram</div>
-        <div class="f-sub">@handle</div>
       </div>
     </div>
     <div class="lbl">Handle / Number</div>
     <input type="text" id="funnelHandle" placeholder="@yourtelegram" style="margin-bottom:10px"/>
-    <button class="btn-green btn-full" onclick="saveFunnel()">Save Funnel</button>
+    <button class="btn-green btn-full" onclick="saveFunnel()">Save Funnel for All Accounts</button>
     <div class="status" id="funnelStatus"></div>
   </div>
 
-  <!-- SHADOWBAN REMOVER -->
-  <div class="section-label"><span>Tools</span></div>
+  <!-- Shadowban -->
   <div class="card">
     <div class="card-head">
       <div class="card-icon">🛡️</div>
-      <div><div class="card-title">Shadowban Remover</div><div class="card-sub">Detect &amp; remove account shadowban</div></div>
+      <div><div class="card-title">Shadowban Remover</div><div class="card-sub">Check &amp; fix shadowbans across all accounts</div></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:10px">
-      <button class="btn-pink" onclick="checkShadowban()">🔍 Check Status</button>
-      <button class="btn-red" onclick="removeShadowban()">⚡ Remove Shadowban</button>
+      <button class="btn-amber" onclick="checkAllShadowbans()">🔍 Check All Accounts</button>
+      <button class="btn-red" onclick="removeAllShadowbans()">⚡ Remove All Shadowbans</button>
     </div>
-    <div class="progress-bar hidden" id="shadowProgress"><div class="progress-fill" id="shadowFill" style="width:0%"></div></div>
+    <div class="progress-bar hidden" id="shadowProgress"><div class="progress-fill" id="shadowFill"></div></div>
     <div class="status" id="shadowStatus"></div>
-    <div class="log-box hidden" id="shadowLog"></div>
+    <div class="log-box hidden" id="shadowLog" style="margin-top:10px"></div>
   </div>
+
+  <!-- Back button -->
+  <button class="btn-ghost btn-full" onclick="goToSetup()" style="margin-top:10px">← Back to Setup (Create More)</button>
+
+</div>
 
 </div><!-- end .page -->
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// FEELD PANEL — Full Client-Side Simulated Logic
+// FEELD PANEL v3 — Bulk Account Creation + Automation
 // ═══════════════════════════════════════════════════════════
 
+// ── Data ──
+const GIRL_NAMES=['Sophia','Mia','Luna','Olivia','Ava','Isabella','Aria','Chloe','Zoe','Lily','Ella','Nora','Riley','Layla','Stella','Violet','Aurora','Maya','Ivy','Willow','Ruby','Jade','Hazel','Scarlett','Savannah','Bella','Kylie','Ellie','Aaliyah','Naomi','Valentina','Clara','Lila','Sienna','Freya','Isla','Ember','Sage','Brielle','Kira','Camila','Amara','Nova','Eden','Athena','Wren','Faye','Leah','Talia','Gemma','Paisley','Serenity','Celeste','Lyra','Catalina','Daphne','Esme','Lena','Thea','Rosie','Ayla','Mika','Zara','Yara','Nia','Suki','Kaia','Remi','Harley','Ariel'];
+
+const BIOS=["just a vibe looking for something real","coffee addict & sunset chaser","not here for games, lets grab wine","pilates girly with a sweet tooth","adventure > netflix. take me somewhere new","dog mom energy, swipe right if youre tall","soft girl with a sharp mind","manifesting good energy only","lets skip the small talk","hot yoga & iced matcha kind of girl","probably at brunch rn","looking for my person, not a pen pal","sunshine mixed with a little hurricane","gym > going out but i clean up nice","plant mom, wine lover, overthinker","chaotic good energy, always down for spontaneous plans","your future situationship jk unless...","lowkey competitive about everything","fluent in sarcasm & emoji","that girl era, come along for the ride","sweet but a little unhinged","i have good music taste, thats my personality","healing my inner child one brunch at a time","catch flights not feelings jk im a softie","simple girl with expensive taste"];
+
+const CHAT_REPLIES=["heyy how's your day going?","omg thats so cute haha","you seem fun, tell me more","i love that! what else are you into?","haha stoppp youre making me blush","thats actually really interesting","okayyy i like your energy","lol youre funny, i appreciate that","so what do you do for fun?","honestly same, we might actually vibe","thats such a green flag tbh","wait no way, me too!! what are the odds","you give good vibes","hmm interesting... tell me your hot take","okay but are you actually this sweet irl?"];
+
+const INBOUND_MSGS=["hey!","hi there","what are you up to?","you seem cool","love your profile","heyy wyd","you look fun","omg ur so pretty","hey cutie","wanna chat?","ur vibe is immaculate","hey gorgeous","whats good?"];
+
 // ── State ──
-let loginMethod = 'icloud';
-let randomAge = false, randomName = false, randomBio = false, randomTiming = false;
-let swiperRunning = false, swiperInterval = null, swipeCount = 0;
-let aiChatterOn = false, chatterInterval = null;
-let selectedFunnel = 'telegram';
-let pics = [];
+let loginMethod='gmail';
+let pics=[];
+let accounts=[];
+let opts={customNames:false,customBios:false,humanSwipe:false};
+let swiperRunning=false,swiperInterval=null,swipeTotal=0;
+let chatterRunning=false,chatterInterval=null;
+let selectedFunnel='telegram';
 
-// ── Girl Names ──
-const GIRL_NAMES = ['Sophia','Mia','Luna','Olivia','Ava','Isabella','Aria','Chloe','Zoe','Lily','Ella','Nora','Riley','Layla','Stella','Violet','Aurora','Maya','Ivy','Willow','Ruby','Jade','Hazel','Scarlett','Savannah','Bella','Kylie','Ellie','Aaliyah','Naomi','Valentina','Clara','Lila','Sienna','Freya','Isla','Ember','Sage','Brielle','Kira','Camila','Amara','Nova','Eden','Athena','Wren','Faye','Leah','Talia','Gemma','Paisley','Serenity','Celeste','Lyra','Catalina','Daphne','Esme','Lena','Thea','Rosie','Ayla','Mika','Zara','Yara','Nia','Suki','Kaia','Remi','Harley','Ariel'];
+// ── Utility ──
+function toast(msg,type){const old=document.querySelector('.toast');if(old)old.remove();const t=document.createElement('div');t.className='toast '+(type||'info');t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove()},3000)}
+function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function time(){return new Date().toLocaleTimeString()}
+function addLog(id,html){var box=document.getElementById(id);box.classList.remove('hidden');var l=document.createElement('div');l.className='log-line';l.innerHTML=html;box.prepend(l);if(box.children.length>100)box.lastChild.remove()}
 
-// ── Girly Bios ──
-const BIOS = [
-  "just a vibe ✨ looking for something real",
-  "coffee addict & sunset chaser 🌅",
-  "not here for games, let's grab wine 🍷",
-  "pilates girly with a sweet tooth 🧁",
-  "adventure > netflix. take me somewhere new ✈️",
-  "dog mom energy 🐾 swipe right if you're tall",
-  "soft girl with a sharp mind 💅",
-  "manifesting good energy only 🦋",
-  "let's skip the small talk 💫",
-  "hot yoga & iced matcha kind of girl 🍵",
-  "probably at brunch rn 🥂",
-  "looking for my person, not a pen pal 💌",
-  "sunshine mixed with a little hurricane 🌊",
-  "catch flights not feelings ✈️ jk i'm a softie",
-  "gym > going out but i clean up nice 💄",
-  "plant mom, wine lover, overthinker 🌿",
-  "chaotic good energy, always down for spontaneous plans",
-  "your future situationship 💕 jk unless...",
-  "5'4 but my attitude is 6'1 😌",
-  "lowkey competitive about everything 🏆",
-  "fluent in sarcasm & emoji 💀✨",
-  "that girl era 🫶 come along for the ride",
-  "sweet but a little unhinged 🎀",
-  "i have good music taste, that's my personality",
-  "healing my inner child one brunch at a time 🧘‍♀️"
-];
+// ── Step Navigation ──
+function showStep(n){document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});document.getElementById('step'+n).classList.add('active');var labels=['SETUP','CREATING...','RUNNING'];document.getElementById('navStep').textContent=labels[n-1]||''}
+function goToSetup(){showStep(1)}
 
-// ── AI Chat Responses ──
-const CHAT_MSGS = [
-  "heyy 😊 how's your day going?",
-  "omg that's so cute haha",
-  "you seem fun, tell me more 👀",
-  "i love that! what else are you into?",
-  "haha stoppp you're making me blush 🙈",
-  "that's actually really interesting, i never thought about it like that",
-  "okayyy i like your energy ✨",
-  "lol you're funny, i appreciate that",
-  "so what do you do for fun? besides being cute on here 😌",
-  "honestly same, we might actually vibe",
-  "that's such a green flag tbh 💚",
-  "wait no way, me too!! what are the odds",
-  "you give good vibes, i can tell 🦋",
-  "hmm interesting... tell me your hot take on pineapple pizza 🍕",
-  "okay but are you actually this sweet irl or just on here? 🤭"
-];
+// ── Login Method ──
+function selectMethod(el){document.querySelectorAll('#loginMethodGroup .radio-opt').forEach(function(e){e.classList.remove('active')});el.classList.add('active');loginMethod=el.dataset.val}
 
-// ── Toast ──
-function toast(msg, type='info') {
-  const old = document.querySelector('.toast');
-  if (old) old.remove();
-  const t = document.createElement('div');
-  t.className = 'toast ' + type;
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 3000);
+// ── Toggle Options ──
+function toggleOpt(key){opts[key]=!opts[key];var tog=document.getElementById(key+'Toggle');if(tog)tog.classList.toggle('on',opts[key]);if(key==='customNames')document.getElementById('customNameList').classList.toggle('hidden',!opts[key]);if(key==='customBios')document.getElementById('customBioList').classList.toggle('hidden',!opts[key])}
+
+// ── Photos ──
+function uploadPics(){var input=document.getElementById('picInput');var st=document.getElementById('picStatus');if(!input.files||!input.files.length){st.textContent='Select images';st.className='status err';return}
+st.textContent='Uploading...';st.className='status info';var loaded=0;var total=input.files.length;
+for(var f=0;f<input.files.length;f++){(function(file){var r=new FileReader();r.onload=function(){pics.push({name:file.name,data:r.result});loaded++;if(loaded===total){st.textContent='Done! '+total+' photo(s) added ('+pics.length+' total in pool)';st.className='status ok';input.value='';renderPics();toast(total+' photos uploaded','success')}};r.readAsDataURL(file)})(input.files[f])}}
+
+function renderPics(){var g=document.getElementById('picGrid');g.innerHTML=pics.map(function(p,i){return '<div class="img-card"><img src="'+p.data+'"/><button class="img-del" onclick="pics.splice('+i+',1);renderPics()">&times;</button></div>'}).join('')}
+
+// ── Email/Proxy counters ──
+document.getElementById('emailList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.includes(':')});document.getElementById('emailCount').textContent=lines.length+' account(s) detected';document.getElementById('emailCount').className='status info'});
+document.getElementById('proxyList').addEventListener('input',function(){var lines=this.value.trim().split('\n').filter(function(l){return l.trim()});document.getElementById('proxyCount').textContent=lines.length+' proxy(ies) loaded';document.getElementById('proxyCount').className='status info'});
+
+// ═══════════════════════════════════════════════════════════
+// ACCOUNT CREATION
+// ═══════════════════════════════════════════════════════════
+function startCreation(){
+  var emailRaw=document.getElementById('emailList').value.trim();
+  var proxyRaw=document.getElementById('proxyList').value.trim();
+  var smsKey=document.getElementById('smsKey').value.trim();
+  var count=parseInt(document.getElementById('accCount').value)||10;
+  var delay=(parseInt(document.getElementById('creationDelay').value)||5)*1000;
+  var st=document.getElementById('setupError');
+
+  var emails=emailRaw.split('\n').filter(function(l){return l.includes(':')}).map(function(l){var p=l.trim().split(':');return{email:p[0],pass:p.slice(1).join(':')}});
+  if(!emails.length){st.textContent='Add at least one email:password';st.className='status err';return}
+
+  var proxies=proxyRaw.split('\n').filter(function(l){return l.trim()}).map(function(l){return l.trim()});
+  if(!proxies.length){st.textContent='Add at least one proxy';st.className='status err';return}
+
+  if(!smsKey){st.textContent='Enter SMS API key';st.className='status err';return}
+
+  var actualCount=Math.min(count,emails.length);
+  st.textContent='';
+
+  var names=GIRL_NAMES.slice();
+  if(opts.customNames){var custom=document.getElementById('customNameList').value.split(',').map(function(n){return n.trim()}).filter(function(n){return n});if(custom.length)names=custom}
+
+  var bios=BIOS.slice();
+  if(opts.customBios){var custom2=document.getElementById('customBioList').value.split('\n').map(function(b){return b.trim()}).filter(function(b){return b});if(custom2.length)bios=custom2}
+
+  var ageMin=parseInt(document.getElementById('ageMin').value)||21;
+  var ageMax=parseInt(document.getElementById('ageMax').value)||27;
+
+  showStep(2);
+  document.getElementById('navPills').style.display='flex';
+  accounts=[];
+
+  var log=document.getElementById('creationLog');
+  var fill=document.getElementById('creationFill');
+  var sub=document.getElementById('creationSub');
+  var cst=document.getElementById('creationStatus');
+  log.innerHTML='';
+  fill.style.width='0%';
+
+  var i=0;
+  sub.textContent='Creating '+actualCount+' accounts...';
+
+  var creationSteps=['Connecting proxy...','Requesting SMS number...','Receiving verification code...','Logging in via '+loginMethod+'...','Setting name & bio...','Uploading photos...','Account created'];
+
+  var iv=setInterval(function(){
+    if(i>=actualCount){
+      clearInterval(iv);
+      fill.style.width='100%';
+      cst.textContent='All '+actualCount+' accounts created successfully!';cst.className='status ok';
+      sub.textContent=actualCount+' accounts ready';
+      toast(actualCount+' accounts created!','success');
+      document.getElementById('navAccCount').textContent=actualCount+' ACCOUNTS';
+      setTimeout(function(){showStep(3);renderAccTable()},1500);
+      return;
+    }
+
+    var email=emails[i];
+    var proxy=proxies[i%proxies.length];
+    var name=pick(names);
+    var age=randInt(ageMin,ageMax);
+    var bio=pick(bios);
+
+    addLog('creationLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">#'+(i+1)+' '+name+'</span> — '+creationSteps[i%creationSteps.length]);
+
+    accounts.push({id:i+1,name:name,age:age,email:email.email,proxy:proxy,bio:bio,status:'active',swipes:0,matches:0,chats:0});
+
+    i++;
+    var pct=(i/actualCount)*100;
+    fill.style.width=pct+'%';
+    cst.textContent='Creating account '+i+'/'+actualCount+'...';cst.className='status info';
+  },delay);
 }
 
-// ── Login ──
-function selectLoginMethod(el) {
-  document.querySelectorAll('#loginMethodGroup .radio-opt').forEach(e => e.classList.remove('active'));
-  el.classList.add('active');
-  loginMethod = el.dataset.val;
+// ── Account Table ──
+function renderAccTable(){
+  var tbody=document.getElementById('accTableBody');
+  tbody.innerHTML=accounts.map(function(a){return '<tr><td style="color:var(--text3)">'+a.id+'</td><td style="font-weight:600;color:var(--lavender)">'+a.name+'</td><td>'+a.age+'</td><td style="font-family:var(--mono);font-size:10px;color:var(--text2)">'+a.email+'</td><td style="font-family:var(--mono);font-size:10px;color:var(--text3)">'+a.proxy.substring(0,20)+'...</td><td><span class="pill pill-green">ACTIVE</span></td><td><span class="pill '+(a.swipes>0?'pill-amber':'pill-purple')+'">'+a.swipes+' swipes</span></td></tr>'}).join('');
+  document.getElementById('navAccCount').textContent=accounts.length+' ACCOUNTS';
 }
 
-function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPass').value.trim();
-  const st = document.getElementById('loginStatus');
-  if (!email || !pass) { st.textContent = 'Enter email and password'; st.className = 'status err'; return; }
-  st.textContent = `Connecting via ${loginMethod}...`; st.className = 'status info';
-  setTimeout(() => {
-    st.textContent = 'Authenticating...'; st.className = 'status info';
-    setTimeout(() => {
-      st.textContent = `Verified! Logging in as ${email}`; st.className = 'status ok';
-      setTimeout(() => {
-        document.getElementById('loginView').classList.add('hidden');
-        document.getElementById('mainView').classList.remove('hidden');
-        document.getElementById('navStatus').style.display = 'block';
-        toast('Connected via ' + loginMethod, 'success');
-      }, 600);
-    }, 800);
-  }, 500);
-}
-// ── SMS & Proxy ──
-function connectSMS() {
-  const key = document.getElementById('smsApiKey').value.trim();
-  const provider = document.getElementById('smsProvider').value;
-  const st = document.getElementById('smsStatus');
-  if (!key) { st.textContent = 'Enter API key'; st.className = 'status err'; return; }
-  st.textContent = `Connecting to ${provider}...`; st.className = 'status info';
-  setTimeout(() => {
-    st.textContent = `✓ Connected to ${provider} | Balance: $${(Math.random()*50+5).toFixed(2)} | Numbers available`; st.className = 'status ok';
-    toast('SMS API connected', 'success');
-  }, 1200);
-}
+// ═══════════════════════════════════════════════════════════
+// AUTO SWIPER
+// ═══════════════════════════════════════════════════════════
+function toggleSwiper(){if(swiperRunning)stopSwiper();else startSwiper()}
 
-function connectProxy() {
-  const proxy = document.getElementById('proxyInput').value.trim();
-  const proto = document.getElementById('proxyProto').value;
-  const st = document.getElementById('proxyStatus');
-  if (!proxy) { st.textContent = 'Enter proxy string'; st.className = 'status err'; return; }
-  st.textContent = 'Testing proxy...'; st.className = 'status info';
-  setTimeout(() => {
-    const ping = Math.floor(Math.random()*80+30);
-    const ip = `${Math.floor(Math.random()*200+10)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-    st.textContent = `✓ Proxy live | IP: ${ip} | Ping: ${ping}ms | ${proto.toUpperCase()}`; st.className = 'status ok';
-    toast('Proxy connected', 'success');
-  }, 1500);
-}
+function startSwiper(){
+  swiperRunning=true;swipeTotal=0;
+  var btn=document.getElementById('swiperBtn');
+  var st=document.getElementById('swiperStatus');
+  var log=document.getElementById('swiperLog');
+  var maxPerAcc=parseInt(document.getElementById('swipeMax').value)||50;
+  var delay=(parseInt(document.getElementById('swipeDelay').value)||3)*1000;
+  var likeRatio=parseInt(document.getElementById('swipeLikeRatio').value)||70;
+  var humanized=opts.humanSwipe;
 
-// ── Age ──
-function toggleRandomAge() {
-  randomAge = !randomAge;
-  document.getElementById('randomAgeToggle').classList.toggle('on', randomAge);
-  updateAgePreview();
-}
-
-function updateAgePreview() {
-  const base = parseInt(document.getElementById('ageInput').value) || 23;
-  const age = randomAge ? base + Math.floor(Math.random()*5) - 2 : base;
-  const year = new Date().getFullYear() - age;
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const m = months[Math.floor(Math.random()*12)];
-  const d = Math.floor(Math.random()*28)+1;
-  document.getElementById('agePreview').textContent = `Birthday: ${m} ${d}, ${year} (age ${age})`;
-}
-document.getElementById('ageInput').addEventListener('input', updateAgePreview);
-
-// ── Name ──
-function toggleRandomName() {
-  randomName = !randomName;
-  document.getElementById('randomNameToggle').classList.toggle('on', randomName);
-  if (randomName) generateName();
-}
-
-function generateName() {
-  const name = GIRL_NAMES[Math.floor(Math.random()*GIRL_NAMES.length)];
-  document.getElementById('nameInput').value = name;
-  document.getElementById('namePreview').textContent = `Generated: ${name}`;
-  toast(`Name: ${name}`, 'info');
-}
-
-// ── Bio ──
-function toggleRandomBio() {
-  randomBio = !randomBio;
-  document.getElementById('randomBioToggle').classList.toggle('on', randomBio);
-  if (randomBio) generateBio();
-}
-
-function generateBio() {
-  const bio = BIOS[Math.floor(Math.random()*BIOS.length)];
-  document.getElementById('bioInput').value = bio;
-  document.getElementById('bioPreview').textContent = `Preview: ${bio}`;
-  toast('Bio generated', 'info');
-}
-
-// ── Pics ──
-function uploadPics() {
-  const input = document.getElementById('picInput');
-  const st = document.getElementById('picStatus');
-  if (!input.files || !input.files.length) { st.textContent = 'Select images first'; st.className = 'status err'; return; }
-  if (pics.length + input.files.length > 6) { st.textContent = 'Max 6 photos allowed'; st.className = 'status err'; return; }
-  st.textContent = 'Uploading...'; st.className = 'status info';
-  let loaded = 0;
-  const total = input.files.length;
-  for (const file of input.files) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      pics.push({ name: file.name, data: reader.result });
-      loaded++;
-      if (loaded === total) {
-        st.textContent = `✓ ${total} photo(s) uploaded (${pics.length}/6)`; st.className = 'status ok';
-        input.value = '';
-        renderPics();
-        toast(`${total} photo(s) added`, 'success');
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-function renderPics() {
-  const grid = document.getElementById('picGrid');
-  if (!pics.length) { grid.innerHTML = ''; return; }
-  grid.innerHTML = pics.map((p, i) => `
-    <div class="img-card">
-      <img src="${p.data}" alt="${p.name}"/>
-      <button class="img-del" onclick="deletePic(${i})">&times;</button>
-    </div>
-  `).join('');
-}
-
-function deletePic(i) {
-  pics.splice(i, 1);
-  renderPics();
-  toast('Photo removed', 'error');
-}
-// ── Auto Swiper ──
-function toggleRandomTiming() {
-  randomTiming = !randomTiming;
-  document.getElementById('randomTimingToggle').classList.toggle('on', randomTiming);
-}
-
-function toggleSwiper() {
-  if (swiperRunning) stopSwiper();
-  else startSwiper();
-}
-
-function startSwiper() {
-  swiperRunning = true;
-  swipeCount = 0;
-  const btn = document.getElementById('swiperBtn');
-  const st = document.getElementById('swiperStatus');
-  const log = document.getElementById('swiperLog');
-  const prog = document.getElementById('swipeProgress');
-  const maxSwipes = parseInt(document.getElementById('swipeMax').value) || 50;
-  const delay = (parseInt(document.getElementById('swipeDelay').value) || 3) * 1000;
-  const likeRatio = parseInt(document.getElementById('swipeLikeRatio').value) || 70;
-
-  btn.innerHTML = '⏹ Stop Swiping';
-  btn.classList.remove('btn-pink'); btn.classList.add('btn-red');
+  btn.innerHTML='Stop All Swipers';btn.classList.remove('btn-pink');btn.classList.add('btn-red');
   log.classList.remove('hidden');
-  prog.style.display = 'block';
-  st.textContent = 'Swiping...'; st.className = 'status ok';
-  toast('Auto Swiper started', 'success');
+  st.textContent='Swiping on '+accounts.length+' accounts...';st.className='status ok';
+  toast('Swipers started on all accounts','success');
 
-  swiperInterval = setInterval(() => {
-    if (swipeCount >= maxSwipes) { stopSwiper(); return; }
-    swipeCount++;
-    const jitter = randomTiming ? Math.floor(Math.random()*2000-1000) : 0;
-    const liked = Math.random()*100 < likeRatio;
-    const fakeName = GIRL_NAMES[Math.floor(Math.random()*GIRL_NAMES.length)];
-    const fakeAge = Math.floor(Math.random()*10)+20;
-    const action = liked ? '💚 LIKED' : '❌ PASSED';
-    const line = document.createElement('div');
-    line.className = 'log-line';
-    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> ${action} <span style="color:var(--lavender)">${fakeName}, ${fakeAge}</span>`;
-    log.prepend(line);
-    const pct = Math.min((swipeCount/maxSwipes)*100, 100);
-    document.getElementById('swipeFill').style.width = pct + '%';
-    st.textContent = `Swiping... ${swipeCount}/${maxSwipes} | ${liked?'Liked':'Passed'}`;
-  }, delay + (randomTiming ? Math.random()*2000 : 0));
+  var totalSwipes=maxPerAcc*accounts.length;
+  swiperInterval=setInterval(function(){
+    if(swipeTotal>=totalSwipes){stopSwiper();return}
+    var acc=pick(accounts);
+    if(acc.swipes>=maxPerAcc)return;
+    acc.swipes++;swipeTotal++;
+    var liked=Math.random()*100<likeRatio;
+    var target=pick(GIRL_NAMES);
+    var tAge=randInt(20,30);
+    if(liked&&Math.random()>0.7){acc.matches++;addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--pink)">MATCH!</span> <span style="color:var(--lavender)">'+acc.name+'</span> matched with '+target+', '+tAge)}
+    else{var action=liked?'LIKED':'PASS';addLog('swiperLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--text2)">'+acc.name+'</span> '+action+' > '+target+', '+tAge)}
+    var pct=(swipeTotal/totalSwipes)*100;
+    document.getElementById('swipeFill').style.width=pct+'%';
+    st.textContent='Swiping... '+swipeTotal+'/'+totalSwipes+' total | '+accounts.reduce(function(s,a){return s+a.matches},0)+' matches';
+    renderAccTable();
+  },delay+(humanized?randInt(-1000,1500):0));
 }
 
-function stopSwiper() {
-  swiperRunning = false;
-  clearInterval(swiperInterval);
-  const btn = document.getElementById('swiperBtn');
-  const st = document.getElementById('swiperStatus');
-  btn.innerHTML = '▶ Start Swiping';
-  btn.classList.remove('btn-red'); btn.classList.add('btn-pink');
-  st.textContent = `✓ Session complete — ${swipeCount} swipes`; st.className = 'status ok';
-  toast(`Swiper done: ${swipeCount} swipes`, 'success');
+function stopSwiper(){
+  swiperRunning=false;clearInterval(swiperInterval);
+  var btn=document.getElementById('swiperBtn');
+  var st=document.getElementById('swiperStatus');
+  btn.innerHTML='Start All Swipers';btn.classList.remove('btn-red');btn.classList.add('btn-pink');
+  var totalMatches=accounts.reduce(function(s,a){return s+a.matches},0);
+  st.textContent='Done! '+swipeTotal+' swipes, '+totalMatches+' matches across '+accounts.length+' accounts';st.className='status ok';
+  toast('Swiping complete: '+totalMatches+' matches!','success');
 }
 
-// ── AI Chatter ──
-function toggleAIChatter() {
-  aiChatterOn = !aiChatterOn;
-  document.getElementById('aiChatterToggle').classList.toggle('on', aiChatterOn);
-  const st = document.getElementById('chatterStatus');
-  const log = document.getElementById('chatterLog');
-
-  if (aiChatterOn) {
+// ═══════════════════════════════════════════════════════════
+// AI CHATTER
+// ═══════════════════════════════════════════════════════════
+function toggleChatter(){
+  chatterRunning=!chatterRunning;
+  var btn=document.getElementById('chatterBtn');
+  var st=document.getElementById('chatterStatus');
+  var log=document.getElementById('chatterLog');
+  if(chatterRunning){
+    btn.innerHTML='Stop AI Chatter';btn.classList.remove('btn-green');btn.classList.add('btn-red');
     log.classList.remove('hidden');
-    st.textContent = 'AI Chatter active — monitoring conversations'; st.className = 'status ok';
-    toast('AI Chatter enabled', 'success');
-    simulateChats();
+    st.textContent='AI Chatter active on '+accounts.length+' accounts';st.className='status ok';
+    toast('AI Chatter enabled','success');
+    var delay=(parseInt(document.getElementById('chatDelay').value)||15)*1000;
+    var personality=document.getElementById('chatPersonality').value;
+    chatterInterval=setInterval(function(){
+      if(!chatterRunning)return;
+      var acc=pick(accounts);
+      acc.chats++;
+      var matchName=pick(GIRL_NAMES);
+      var inMsg=pick(INBOUND_MSGS);
+      var reply=pick(CHAT_REPLIES);
+      addLog('chatterLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">'+acc.name+'</span> got: "'+inMsg+'" <span style="color:var(--green)">replied:</span> "'+reply+'" <span class="pill pill-purple">'+personality+'</span>');
+      st.textContent='Active | '+accounts.reduce(function(s,a){return s+a.chats},0)+' messages sent total';
+    },delay+randInt(0,5000));
   } else {
     clearInterval(chatterInterval);
-    st.textContent = 'AI Chatter disabled'; st.className = 'status warn';
-    toast('AI Chatter stopped', 'info');
+    btn.innerHTML='Enable AI Chatter';btn.classList.remove('btn-red');btn.classList.add('btn-green');
+    st.textContent='AI Chatter stopped';st.className='status warn';
+    toast('AI Chatter disabled','info');
   }
 }
 
-function simulateChats() {
-  const delay = (parseInt(document.getElementById('chatDelay').value) || 15) * 1000;
-  const personality = document.getElementById('chatPersonality').value;
-  const log = document.getElementById('chatterLog');
+// ═══════════════════════════════════════════════════════════
+// FUNNEL
+// ═══════════════════════════════════════════════════════════
+function selectFunnel(el){document.querySelectorAll('#funnelGroup .funnel-opt').forEach(function(e){e.classList.remove('active')});el.classList.add('active');selectedFunnel=el.dataset.val;var ph={telegram:'@yourtelegram',whatsapp:'+1234567890',instagram:'@yourhandle'};document.getElementById('funnelHandle').placeholder=ph[selectedFunnel]}
 
-  chatterInterval = setInterval(() => {
-    if (!aiChatterOn) return;
-    const matchName = GIRL_NAMES[Math.floor(Math.random()*GIRL_NAMES.length)];
-    const inbound = ['hey!','hi there 😊','what are you up to?','you seem cool','love your profile','heyy wyd','you look fun 👀'][Math.floor(Math.random()*7)];
-    const reply = CHAT_MSGS[Math.floor(Math.random()*CHAT_MSGS.length)];
-    const line = document.createElement('div');
-    line.className = 'log-line';
-    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> <span style="color:var(--amber)">← ${matchName}:</span> "${inbound}" <span style="color:var(--green)">→ replied:</span> "${reply}" <span class="pill pill-purple" style="margin-left:4px">${personality}</span>`;
-    log.prepend(line);
-  }, delay + Math.random()*5000);
+function saveFunnel(){var handle=document.getElementById('funnelHandle').value.trim();var st=document.getElementById('funnelStatus');if(!handle){st.textContent='Enter handle/number';st.className='status err';return}
+st.textContent='Funnel set for all '+accounts.length+' accounts: '+selectedFunnel+': '+handle;st.className='status ok';toast('Funnel saved for all accounts','success')}
+
+// ═══════════════════════════════════════════════════════════
+// SHADOWBAN
+// ═══════════════════════════════════════════════════════════
+function checkAllShadowbans(){
+  var st=document.getElementById('shadowStatus');
+  var log=document.getElementById('shadowLog');
+  var prog=document.getElementById('shadowProgress');
+  var fill=document.getElementById('shadowFill');
+  log.classList.remove('hidden');prog.classList.remove('hidden');fill.style.width='0%';
+  st.textContent='Checking all accounts...';st.className='status info';
+  var i=0;
+  var iv=setInterval(function(){
+    if(i>=accounts.length){clearInterval(iv);fill.style.width='100%';
+      var banned=accounts.filter(function(a){return a._banned});
+      if(banned.length){st.textContent='WARNING: '+banned.length+'/'+accounts.length+' accounts shadowbanned';st.className='status err';toast(banned.length+' shadowbanned','error')}
+      else{st.textContent='All '+accounts.length+' accounts clean!';st.className='status ok';toast('All accounts healthy','success')}
+      return}
+    var acc=accounts[i];
+    acc._banned=Math.random()>0.7;
+    var result=acc._banned?'<span style="color:var(--red)">SHADOWBANNED</span>':'<span style="color:var(--green)">Clean</span>';
+    addLog('shadowLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">'+acc.name+'</span> ('+acc.email+') - '+result);
+    i++;fill.style.width=((i/accounts.length)*100)+'%';
+    st.textContent='Checking '+i+'/'+accounts.length+'...';
+  },600);
 }
 
-// ── Funnel ──
-function selectFunnel(el) {
-  document.querySelectorAll('#funnelGroup .funnel-opt').forEach(e => e.classList.remove('active'));
-  el.classList.add('active');
-  selectedFunnel = el.dataset.val;
-  const placeholders = { telegram: '@yourtelegram', whatsapp: '+1234567890', instagram: '@yourhandle' };
-  document.getElementById('funnelHandle').placeholder = placeholders[selectedFunnel];
-}
+function removeAllShadowbans(){
+  var banned=accounts.filter(function(a){return a._banned});
+  if(!banned.length){toast('No shadowbans to remove - run check first','info');document.getElementById('shadowStatus').textContent='No shadowbans detected';document.getElementById('shadowStatus').className='status info';return}
+  var st=document.getElementById('shadowStatus');
+  var log=document.getElementById('shadowLog');
+  var prog=document.getElementById('shadowProgress');
+  var fill=document.getElementById('shadowFill');
+  log.classList.remove('hidden');prog.classList.remove('hidden');fill.style.width='0%';
+  st.textContent='Removing shadowban from '+banned.length+' accounts...';st.className='status info';
+  toast('Removing shadowbans...','info');
 
-function saveFunnel() {
-  const handle = document.getElementById('funnelHandle').value.trim();
-  const st = document.getElementById('funnelStatus');
-  if (!handle) { st.textContent = 'Enter your handle/number'; st.className = 'status err'; return; }
-  st.textContent = `✓ Funnel set → ${selectedFunnel}: ${handle}`; st.className = 'status ok';
-  toast(`Funnel saved: ${selectedFunnel}`, 'success');
-}
-
-// ── Shadowban Remover ──
-function checkShadowban() {
-  const st = document.getElementById('shadowStatus');
-  const log = document.getElementById('shadowLog');
-  log.classList.remove('hidden');
-  st.textContent = 'Checking account status...'; st.className = 'status info';
-
-  const steps = [
-    'Analyzing profile visibility...',
-    'Checking discovery feed placement...',
-    'Scanning like delivery rate...',
-    'Reviewing match frequency...',
-    'Checking ELO score indicators...'
-  ];
-  let i = 0;
-  const iv = setInterval(() => {
-    if (i >= steps.length) {
-      clearInterval(iv);
-      const banned = Math.random() > 0.5;
-      if (banned) {
-        st.textContent = '⚠️ SHADOWBAN DETECTED — reduced visibility'; st.className = 'status err';
-        const line = document.createElement('div');
-        line.className = 'log-line';
-        line.innerHTML = `<span style="color:var(--red)">⚠️ Shadowban confirmed</span> — profile visibility reduced by ~70%, match rate down`;
-        log.prepend(line);
-        toast('Shadowban detected!', 'error');
-      } else {
-        st.textContent = '✓ No shadowban detected — account healthy'; st.className = 'status ok';
-        const line = document.createElement('div');
-        line.className = 'log-line';
-        line.innerHTML = `<span style="color:var(--green)">✓ Account healthy</span> — normal visibility, ELO stable`;
-        log.prepend(line);
-        toast('Account is clean', 'success');
-      }
-      return;
-    }
-    const line = document.createElement('div');
-    line.className = 'log-line';
-    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> ${steps[i]}`;
-    log.prepend(line);
-    st.textContent = steps[i]; st.className = 'status info';
-    i++;
-  }, 800);
-}
-
-function removeShadowban() {
-  const st = document.getElementById('shadowStatus');
-  const log = document.getElementById('shadowLog');
-  const prog = document.getElementById('shadowProgress');
-  const fill = document.getElementById('shadowFill');
-  log.classList.remove('hidden');
-  prog.classList.remove('hidden');
-  fill.style.width = '0%';
-  st.textContent = 'Removing shadowban...'; st.className = 'status info';
-  toast('Shadowban removal started', 'info');
-
-  const steps = [
-    'Resetting device fingerprint...',
-    'Rotating IP address...',
-    'Clearing cached ELO data...',
-    'Rebuilding profile signals...',
-    'Injecting fresh engagement metrics...',
-    'Resetting discovery algorithm placement...',
-    'Verifying profile re-indexing...',
-    'Confirming visibility restoration...'
-  ];
-  let i = 0;
-  const iv = setInterval(() => {
-    if (i >= steps.length) {
-      clearInterval(iv);
-      fill.style.width = '100%';
-      st.textContent = '✓ Shadowban removed — profile visibility restored'; st.className = 'status ok';
-      const line = document.createElement('div');
-      line.className = 'log-line';
-      line.innerHTML = `<span style="color:var(--green)">✓ COMPLETE</span> — shadowban lifted, allow 10-30 min for full effect`;
-      log.prepend(line);
-      toast('Shadowban removed!', 'success');
-      return;
-    }
-    const pct = ((i+1)/steps.length)*100;
-    fill.style.width = pct + '%';
-    const line = document.createElement('div');
-    line.className = 'log-line';
-    line.innerHTML = `<span style="color:var(--text3)">[${new Date().toLocaleTimeString()}]</span> ${steps[i]}`;
-    log.prepend(line);
-    st.textContent = steps[i]; st.className = 'status info';
-    i++;
-  }, 1000);
+  var steps=['Resetting fingerprint','Rotating IP','Clearing ELO cache','Rebuilding signals','Restoring visibility'];
+  var i=0;var s=0;
+  var iv=setInterval(function(){
+    if(i>=banned.length){clearInterval(iv);fill.style.width='100%';
+      accounts.forEach(function(a){a._banned=false});
+      st.textContent='All shadowbans removed from '+banned.length+' accounts!';st.className='status ok';
+      toast('All shadowbans removed!','success');return}
+    var acc=banned[i];
+    addLog('shadowLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--lavender)">'+acc.name+'</span> - '+steps[s%steps.length]+'...');
+    s++;if(s%steps.length===0){i++;addLog('shadowLog','<span style="color:var(--text3)">['+time()+']</span> <span style="color:var(--green)">'+acc.name+' - shadowban removed!</span>')}
+    fill.style.width=((i/banned.length)*100)+'%';
+    st.textContent='Fixing '+i+'/'+banned.length+'...';
+  },500);
 }
 
 // ── Init ──
-updateAgePreview();
+document.getElementById('navPills').style.display='flex';
 </script>
 </body>
 </html>
